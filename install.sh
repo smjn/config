@@ -27,7 +27,7 @@ done
 
 for i in $(ls -a)
 do
-	[[ "$i" = "install.sh" || "$i" = ".gitignore" || ! -f "$i" || -e "${prefix}/$i" || "$i" == "README.md" || "$i" == "soft.sh" || "$i" == "login.sh" ]] && continue
+	[[ "$i" = "install.sh" || "$i" = ".gitignore" || ! -f "$i" || -e "${prefix}/$i" || "$i" == "README.md" || "$i" == "soft.sh" || "$i" == "login.sh" || "$i" == "vimrc.local" ]] && continue
 	echo "${prefix}/$i -> ${repo}/$i";
 	[[ $noop -eq 0 ]] && ln -sf ${repo}/$i ${prefix}/$i;
 done
@@ -52,4 +52,9 @@ if [[ $noop -eq 0 ]]; then
 	wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}/.local/share
 	fc-cache -fv
+	
+	wget 'https://www.dropbox.com/s/uixfxffntdhmzpk/vim.tgz?dl=0' -O /tmp/vim.tgz
+	tar -xvf /tmp/vim.tgz -C ${prefix}
+
+	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
 fi
