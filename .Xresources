@@ -1,7 +1,9 @@
 URxvt*scrollBar:	false
-URxvt*font:			xft:DejaVu Sans Mono for Powerline:size=14
-URxvt*lineSpacetransparent:		0 
-URxvt*.letterSpace:             -2
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: false
+URxvt*font:			xft:DejaVu Sans Mono for Powerline:size=13
+URxvt*lineSpace:	0 
+URxvt*.letterSpace: -2
 
 
 Xft.autohint:   0
@@ -35,7 +37,7 @@ URxvt*borderColor:                    #000000
 URxvt*colorBD:						  #c09405
 
 
-URxvt*saveLines: 			10000
+URxvt*saveLines: 			3000
 URxvt*jumpScroll:           true
 URxvt*skipScroll:           false
 URxvt*scrollTtyOutput:      true
@@ -44,7 +46,29 @@ URxvt*scrollWithBuffer:     false
 URxvt*mouseWheelScrollPage: false
 
 ! transparency
-URxvt*transparent:          true
-URxvt*.shading:             90
-URxvt*tintColor:			#000000
+!URxvt*transparent:          true
+!URxvt*shading:              85
+!URxvt*tintColor:			#000000
 
+
+! bell
+URxvt*urgentOnBell:			false
+
+
+!extensions
+URxvt.iso14755:		false
+URxvt.iso14755_52:	false
+! ROFI Color theme
+! User: sushant
+! ------------------------------------------------------------------------------
+! "Color scheme for normal row" Set from: Default
+!rofi.color-normal:                   #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
+rofi.color-normal:                   #2d2d2d,#ffffff,#2d2d2d,#2d2d2d,#9575cd
+! "Color scheme for urgent row" Set from: Default
+!rofi.color-urgent:                   #fdf6e3,#dc322f,#eee8d5,#dc322f,#fdf6e3
+! "Color scheme for active row" Set from: Default
+rofi.color-active:                   #2d2d2d,#ffffff,#2d2d2d,#2d2d2d,#9575cd
+! "Color scheme window" Set from: Default
+rofi.color-window:                   #2d2d2d,#ffffff
+! "Separator style (none, dash, solid)" Set from: Default
+rofi.separator-style:                none

@@ -32,13 +32,11 @@ do
 	[[ $noop -eq 0 ]] && ln -sf ${repo}/$i ${prefix}/$i;
 done
 
-echo "${prefix}/.vim -> ${repo}/.vim"
 echo "${prefix}/.config/terminator/config -> ${repo}/.config/terminator/config"
 echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
 
 if [[ $noop -eq 0 ]]; then
 	mkdir -p ${prefix}/.config/{terminator,i3}
-	ln -sf ${repo}/.vim ${prefix}/.vim
 	ln -sf ${repo}/.config/terminator/config ${prefix}/.config/terminator/config
 	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
 
