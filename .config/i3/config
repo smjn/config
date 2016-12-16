@@ -160,7 +160,7 @@ bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym $mod+Shift+x exec bash /home/sushant/programs/bash/locker.sh 5 /home/sushant/Pictures/focus_4-wallpaper-1920x1080.png
-bindsym Print exec gnome-screenshot
+bindsym Print exec gnome-screenshot -i #bash gnome-screenshot -f ~/Pictures/screenshot/Screenshot-$(date +%m-%d-%Y_%H:%M:%S)
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -190,5 +190,5 @@ client.focused	#000000	#000000	#00ff00	#2d2d2d
 exec nm-applet
 exec fluxgui
 exec feh --bg-scale ~/Pictures/pKUVn28.png
-exec_always "compton -fcC"
+exec_always "compton -f"
 exec_always "xset -b"
