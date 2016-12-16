@@ -1,0 +1,63 @@
+set nocompatible
+set ruler
+set number
+
+set incsearch
+" This shows what you are typing as a command.  I love this!
+set showcmd
+"
+" Who doesn't like autoindent?
+set autoindent
+
+" Needed for Syntax Highlighting and stuff
+filetype on
+filetype plugin on
+filetype plugin indent on
+syntax enable
+
+" Spaces are better than a tab character
+" set expandtab
+set smarttab
+
+" Who wants an 8 character tab?  Not me!
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" Cool tab completion stuff
+set wildmenu
+set wildmode=list:longest,full
+
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+set showmatch
+
+set tags=tags;/
+set wrap
+set formatoptions=tcrql
+set scrolloff=5               " keep at least 5 lines above/below
+set sidescrolloff=5           " keep at least 5 lines left/right
+set history=200
+set backspace=indent,eol,start
+set undolevels=1000           " 1000 undos
+set updatecount=100           " switch every 100 chars
+set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
+set ttyfast     " we have a fast terminal
+set title
+set titlelen=20
+set laststatus=2
+set isfname-==  
+
+nore ; :
+nore , ;
+"nnoremap < :tabp<CR>
+"nnoremap > :tabn<CR>
+command C let @/=""
+cnoremap w!! w !sudo tee >/dev/null %
+colorscheme koehler
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
+set t_Co=256

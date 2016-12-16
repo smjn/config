@@ -1,0 +1,98 @@
+[global_config]
+  focus = system
+  hide_from_taskbar = True
+[keybindings]
+  hide_window = F12
+  split_horiz = <Primary><Shift>o
+  split_vert = <Primary><Shift>e
+  switch_to_tab_1 = <Alt>1
+  switch_to_tab_2 = <Alt>2
+  switch_to_tab_3 = <Alt>3
+  switch_to_tab_4 = <Alt>4
+  switch_to_tab_5 = <Alt>5
+  switch_to_tab_6 = <Alt>6
+  switch_to_tab_7 = <Alt>7
+  switch_to_tab_8 = <Alt>8
+  switch_to_tab_9 = <Alt>9
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+  [[dropdown]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_window = True
+      maximised = False
+      order = 0
+      parent = ""
+      position = 0:25
+      size = 1366, 562
+      title = sushant@zen3: ~
+      type = Window
+    [[[child1]]]
+      active_page = 1
+      labels = None, None
+      last_active_term = 08ca307b-66a4-4351-a6a5-4623d29fd542, b4207e92-8038-473d-a549-b5f156a7d60b
+      order = 0
+      parent = child0
+      type = Notebook
+    [[[terminal2]]]
+      command = ranger
+      order = 0
+      parent = child1
+      profile = solar
+      type = Terminal
+      uuid = 08ca307b-66a4-4351-a6a5-4623d29fd542
+    [[[terminal3]]]
+      order = 1
+      parent = child1
+      profile = solar
+      type = Terminal
+      uuid = b4207e92-8038-473d-a549-b5f156a7d60b
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.9
+    background_type = transparent
+    cursor_color = "#90908f"
+    font = DejaVu Sans Mono for Powerline 11
+    foreground_color = "#92ac03"
+    palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[dropdown]]
+    background_darkness = 0.9
+    background_type = transparent
+    cursor_color = "#859900"
+    font = DejaVu Sans Mono for Powerline 11
+    foreground_color = "#92ac03"
+    palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollbar_position = disabled
+    show_titlebar = False
+    use_system_font = False
+  [[solar]]
+    background_darkness = 0.9
+    background_type = transparent
+    cursor_color = "#859900"
+    font = DejaVu Sans Mono for Powerline 11
+    foreground_color = "#859900"
+    palette = "#000000:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#777777:#cb4b16:#586e75:#f5d605:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[test]]
+    background_darkness = 0.92
+    background_type = transparent
+    cursor_color = "#859900"
+    font = DejaVu Sans Mono for Powerline 11
+    foreground_color = "#00ff00"
+    palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
+    scrollbar_position = disabled
+    show_titlebar = False
+    use_system_font = False
