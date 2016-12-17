@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono For Powerline 10
+font pango:Ubuntu 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -168,7 +168,7 @@ bindsym Print exec gnome-screenshot -i #bash gnome-screenshot -f ~/Pictures/scre
 bar {
 	colors {
 		# Whole color settings
-		background #2b2b2c
+		background #000000
 		statusline #ffffff
 		separator  #666666
 
@@ -184,7 +184,7 @@ bar {
 }
 
 #class			border  backgr. text    indicator
-client.focused	#2b2b2c	#2b2b2c	#ffffff	#00ff00
+client.focused	#454749	#454749	#ffffff	#92ac03
 
 #start applications
 exec nm-applet
