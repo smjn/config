@@ -127,6 +127,12 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+set $bg				#2f343f
+set $inactive-bg	#2f343f
+set $fg				#f3f4f5
+set $inactive-fg	#676e70
+set $urgent-bg		#e53935
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -168,9 +174,9 @@ bindsym Print exec gnome-screenshot -i #bash gnome-screenshot -f ~/Pictures/scre
 bar {
 	colors {
 		# Whole color settings
-		background #000000
-		statusline #ffffff
-		separator  #666666
+		background	$bg 
+		#statusline #ffffff
+		separator	#757575
 
 		# Type             border  background font
 		#focused_workspace  #2b2b2c  #2b2b2c   #ffffff
@@ -184,7 +190,10 @@ bar {
 }
 
 #class			border  backgr. text    indicator
-client.focused	#454749	#454749	#ffffff	#92ac03
+client.focused			$bg				$bg				$fg				#92ac03
+client.unfocused		$inactive-bg	$inactive-bg	$inactive-fg	#92ac03
+client.focused_inactive	$inactive-bg	$inactive-bg	$inactive-fg	#92ac03	
+client.urgent			$urgent-bg		$urgent-bg		$fg				#92ac03	
 
 #start applications
 exec nm-applet
