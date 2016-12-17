@@ -168,15 +168,15 @@ bindsym Print exec gnome-screenshot -i #bash gnome-screenshot -f ~/Pictures/scre
 bar {
 	colors {
 		# Whole color settings
-		background #000000
+		background #2b2b2c
 		statusline #ffffff
 		separator  #666666
 
 		# Type             border  background font
-		focused_workspace  #008fff #007fff #ffffff
-		active_workspace   #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace   #aa0000 #990000 #ffffff
+		#focused_workspace  #2b2b2c  #2b2b2c   #ffffff
+		#active_workspace   #2b2b2c  #2b2b2c   #ffffff
+		#inactive_workspace #454749  #454749   #888888
+		#urgent_workspace   #ff0000  #2b2b2c   #ffffff
 	}
 	# i3bar position
 	position bottom 
@@ -184,7 +184,7 @@ bar {
 }
 
 #class			border  backgr. text    indicator
-client.focused	#000000	#000000	#00ff00	#2d2d2d
+client.focused	#2b2b2c	#2b2b2c	#ffffff	#00ff00
 
 #start applications
 exec nm-applet
