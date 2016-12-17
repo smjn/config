@@ -127,11 +127,12 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-set $bg				#2f343f
-set $inactive-bg	#2f343f
+set $bg				#1a1d13
+set $inactive-bg	#1a1d13
 set $fg				#f3f4f5
 set $inactive-fg	#676e70
 set $urgent-bg		#e53935
+set $bar-bg			#1a1d13
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -174,7 +175,7 @@ bindsym Print exec gnome-screenshot -i #bash gnome-screenshot -f ~/Pictures/scre
 bar {
 	colors {
 		# Whole color settings
-		background	$bg 
+		background	$bar-bg 
 		#statusline #ffffff
 		separator	#757575
 
@@ -190,14 +191,14 @@ bar {
 }
 
 #class			border  backgr. text    indicator
-client.focused			$bg				$bg				$fg				#92ac03
-client.unfocused		$inactive-bg	$inactive-bg	$inactive-fg	#92ac03
-client.focused_inactive	$inactive-bg	$inactive-bg	$inactive-fg	#92ac03	
-client.urgent			$urgent-bg		$urgent-bg		$fg				#92ac03	
+client.focused			$bg				$bg				$fg				$bar-bg	
+client.unfocused		$inactive-bg	$inactive-bg	$inactive-fg	$bar-bg	
+client.focused_inactive	$inactive-bg	$inactive-bg	$inactive-fg	$bar-bg		
+client.urgent			$urgent-bg		$urgent-bg		$fg				$bar-bg		
 
 #start applications
 exec nm-applet
 exec fluxgui
-exec feh --bg-scale ~/Pictures/pKUVn28.png
+exec feh --bg-scale ~/Pictures/focus_4-wallpaper-1920x1080.jpg
 exec_always "compton -f"
 exec_always "xset -b"

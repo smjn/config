@@ -46,10 +46,9 @@ URxvt*scrollWithBuffer:     false
 URxvt*mouseWheelScrollPage: false
 
 ! transparency
-!URxvt*transparent:          true
-!URxvt*shading:              85
-!URxvt*tintColor:			#000000
-
+URxvt*transparent:          true
+URxvt*shading:              85
+URxvt*tintColor:			#1a1d13
 
 ! bell
 URxvt*urgentOnBell:			false
