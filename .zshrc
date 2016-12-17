@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ "$TERM" = "linux" ]; then
 	ZSH_THEME="maran2"
 else
-	export TERM="xterm-color"
+	#export TERM="xterm-color"
 	ZSH_THEME="sushant"
 fi
 #good themes agnoster
@@ -96,7 +96,7 @@ alias APT='sudo apt-fast update'
 alias APTU='sudo apt-fast update && sudo apt-fast -y upgrade'
 alias AP='sudo apt-fast'
 alias g++11="g++ -std=c++11"
-alias t2="tmux -2"
+alias t2="tmux -2 -u"
 alias vimx="vim '+set t_ut='"
 alias zsrc='source /home/sushant/.zshrc'
 alias axe='axel -n30 -a'

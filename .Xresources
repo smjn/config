@@ -15,7 +15,7 @@ Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
 
-URxvt*background:                     #000000 
+URxvt*background:                     #1a1d13 
 URxvt*foreground:                     #859900 
 URxvt*color0:                         #000000
 URxvt*color1:                         #dc322f
