@@ -95,6 +95,7 @@ source $ZSH/oh-my-zsh.sh
 alias APT='sudo apt-fast update'
 alias APTU='sudo apt-fast update && sudo apt-fast -y upgrade'
 alias AP='sudo apt-fast'
+alias AS='apt-cache search'
 alias g++11="g++ -std=c++11"
 alias t2="tmux -2 -u"
 alias vimx="vim '+set t_ut='"
