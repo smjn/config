@@ -202,5 +202,5 @@ client.urgent			$urgent-bg		$urgent-bg		$fg				$bar-bg
 exec nm-applet
 exec fluxgui
 exec feh --bg-scale ~/Pictures/focus.png
-exec_always "compton -fC --no-fading-openclose"
+exec_always "compton -f"
 exec_always "xset -b"
