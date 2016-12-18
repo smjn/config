@@ -166,7 +166,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
-bindsym $mod+Shift+x exec bash /home/sushant/programs/bash/locker.sh 5 /home/sushant/Pictures/focus_4-wallpaper-1920x1080.png
+bindsym $mod+Shift+x exec bash $HOME/programs/bash/locker.sh 5 $HOME/Pictures/focus.png
 bindsym Shift+Print exec gnome-screenshot -w -f $HOME/Pictures/screenshot/Screenshot-`date +%d-%m-%Y-%H:%M:%S`.png
 bindsym $mod+Shift+Print exec gnome-screenshot -a -f $HOME/Pictures/screenshot/Screenshot-`date +%d-%m-%Y-%H:%M:%S`.png
 
