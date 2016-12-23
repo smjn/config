@@ -9,7 +9,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ "$TERM" = "linux" ]; then
 	ZSH_THEME="maran2"
 else
 	#export TERM="xterm-color"
-	ZSH_THEME="sushant"
+	ZSH_THEME="agnoster2"
 fi
 #good themes agnoster
 
