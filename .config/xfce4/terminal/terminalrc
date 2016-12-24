@@ -1,5 +1,4 @@
 [Configuration]
-BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
@@ -22,7 +21,6 @@ MiscMiddleClickOpensUri=FALSE
 MiscDefaultWorkingDir=
 MiscRewrapOnResize=TRUE
 MiscUseShiftArrowsToScroll=FALSE
-BackgroundDarkness=0.950000
 FontName=DejaVu Sans Mono for Powerline 13
 ColorForeground=#858599990000
 ColorBold=#f5f5d6d60505
