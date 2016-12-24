@@ -86,6 +86,15 @@
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
+  [[solar2]]
+    cursor_color = "#859900"
+    font = DejaVu Sans Mono for Powerline 11
+    foreground_color = "#859900"
+    palette = "#000000:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#777777:#cb4b16:#586e75:#f5d605:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+
   [[test]]
     background_darkness = 0.92
     background_type = transparent
