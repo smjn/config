@@ -15,7 +15,7 @@ Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
 
-URxvt*background:                     #1a1d13 
+URxvt*background:                     #000000 
 URxvt*foreground:                     #859900 
 URxvt*color0:                         #000000
 URxvt*color1:                         #dc322f
@@ -46,9 +46,9 @@ URxvt*scrollWithBuffer:     false
 URxvt*mouseWheelScrollPage: false
 
 ! transparency
-URxvt*transparent:          true
-URxvt*shading:              85
-URxvt*tintColor:			#1a1d13
+!URxvt*transparent:          false
+!URxvt*shading:              85
+!URxvt*tintColor:			#000000
 
 ! bell
 URxvt*urgentOnBell:			false
