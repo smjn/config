@@ -25,9 +25,9 @@ colorscheme molokai
 "colorscheme solarized.orig
 
 set cursorline
-hi Normal ctermbg=none
-hi NonText ctermbg=none
-hi Visual ctermbg=darkblue ctermfg=black
+"hi Normal ctermbg=none
+"hi NonText ctermbg=none
+"hi Visual ctermbg=darkblue ctermfg=black
 "hi CursorLine cterm=none ctermbg=none cterm=none
 
 command! -range=% -nargs=0 T2S execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
