@@ -1,4 +1,9 @@
 [Configuration]
+ColorCursor=#f8f8f2
+ColorForeground=#f8f8f2
+ColorBackground=#272822
+ColorPalette=#272822;#f92672;#a6e22e;#f4bf75;#66d9ef;#ae81ff;#a1efe4;#f8f8f2;#75715e;#f92672;#a6e22e;#f4bf75;#66d9ef;#ae81ff;#a1efe4;#f9f8f5
+FontName=DejaVu Sans Mono for Powerline 13
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
@@ -7,7 +12,7 @@ MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
 MiscDefaultGeometry=80x24
 MiscInheritGeometry=FALSE
-MiscMenubarDefault=FALSE
+MiscMenubarDefault=TRUE
 MiscMouseAutohide=FALSE
 MiscMouseWheelZoom=TRUE
 MiscToolbarDefault=FALSE
@@ -21,17 +26,4 @@ MiscMiddleClickOpensUri=FALSE
 MiscDefaultWorkingDir=
 MiscRewrapOnResize=TRUE
 MiscUseShiftArrowsToScroll=FALSE
-FontName=DejaVu Sans Mono for Powerline 13
-ColorForeground=#858599990000
-ColorBold=#f5f5d6d60505
-ColorBackground=#000000000000
-ColorCursor=#93a1a1
-ColorPalette=rgb(0,0,0);rgb(220,50,47);rgb(133,153,0);rgb(181,137,0);rgb(38,139,210);rgb(211,54,130);rgb(42,161,152);rgb(238,232,213);rgb(136,138,133);rgb(203,75,22);rgb(88,110,117);rgb(101,123,131);rgb(131,148,150);rgb(108,113,196);rgb(147,161,161);rgb(253,246,227)
-TabActivityColor=#dc322f
-ColorBoldUseDefault=FALSE
-ScrollingLines=5000
-DropdownWidth=95
-DropdownHeight=70
-DropdownOpacity=90
-DropdownAnimationTime=10
 
