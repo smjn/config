@@ -15,26 +15,78 @@ Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
 
-URxvt*background:                     #000000 
-URxvt*foreground:                     #859900 
-URxvt*color0:                         #000000
-URxvt*color1:                         #dc322f
-URxvt*color2:                         #859900
-URxvt*color3:                         #b58900
-URxvt*color4:                         #268bd2
-URxvt*color5:                         #d33682
-URxvt*color6:                         #2aa198
-URxvt*color7:                         #eee8d5
-URxvt*color8:                         #777777
-URxvt*color9:                         #cb4b16
-URxvt*color10:                        #586e75
-URxvt*color11:                        #f5d605
-URxvt*color12:                        #839496
-URxvt*color13:                        #6c71c4
-URxvt*color14:                        #93a1a1
-URxvt*color15:                        #fdf6e3
-URxvt*borderColor:                    #000000
-URxvt*colorBD:						  #f5d605
+! Base16 Monokai
+! Scheme: Wimer Hazenberg (http://www.monokai.nl)
+
+! URxvt*tintColor:                      color
+! URxvt*fadeColor:                      color
+
+URxvt*background:                     #272822
+URxvt*foreground:                     #f8f8f2
+URxvt*cursorColor:                    #f8f8f2
+
+! URxvt*colorBD:                        color
+! URxvt*colorIT:                        color
+! URxvt*colorUL:                        color
+! URxvt*colorRV:                        color
+! URxvt*underlineColor:                 color
+URxvt*scrollColor:                    #f8f8f2
+! URxvt*troughColor:                    color
+URxvt*highlightColor:                 #49483e
+URxvt*highlightTextColor:             #a59f85
+! URxvt*cursorColor2:                   color
+! URxvt*pointerColor:                   color
+! URxvt*pointerColor2:                  color
+! URxvt*borderColor:                    color
+! URxvt*tab-bg:                         colour
+! URxvt*tab-fg:                         colour
+! URxvt*tabbar-bg:                      colour
+! URxvt*tabbar-fg:                      colour
+URxvt*color0:                         #272822
+URxvt*color1:                         #f92672
+URxvt*color2:                         #a6e22e
+URxvt*color3:                         #f4bf75
+URxvt*color4:                         #66d9ef
+URxvt*color5:                         #ae81ff
+URxvt*color6:                         #a1efe4
+URxvt*color7:                         #f8f8f2
+URxvt*color8:                         #75715e
+URxvt*color9:                         #f92672
+URxvt*color10:                        #a6e22e
+URxvt*color11:                        #f4bf75
+URxvt*color12:                        #66d9ef
+URxvt*color13:                        #ae81ff
+URxvt*color14:                        #a1efe4
+URxvt*color15:                        #f9f8f5
+
+! 256 color space
+URxvt*color16:                        #fd971f
+URxvt*color17:                        #cc6633
+URxvt*color18:                        #383830
+URxvt*color19:                        #49483e
+URxvt*color20:                        #a59f85
+URxvt*color21:                        #f5f4f1
+URxvt*borderColor:                    #272822
+!URxvt*background:                     #000000 
+!URxvt*foreground:                     #859900 
+!URxvt*color0:                         #000000
+!URxvt*color1:                         #dc322f
+!URxvt*color2:                         #859900
+!URxvt*color3:                         #b58900
+!URxvt*color4:                         #268bd2
+!URxvt*color5:                         #d33682
+!URxvt*color6:                         #2aa198
+!URxvt*color7:                         #eee8d5
+!URxvt*color8:                         #777777
+!URxvt*color9:                         #cb4b16
+!URxvt*color10:                        #586e75
+!URxvt*color11:                        #f5d605
+!URxvt*color12:                        #839496
+!URxvt*color13:                        #6c71c4
+!URxvt*color14:                        #93a1a1
+!URxvt*color15:                        #fdf6e3
+!URxvt*borderColor:                    #000000
+!URxvt*colorBD:						  #f5d605
 
 
 URxvt*saveLines: 			3000
@@ -46,9 +98,9 @@ URxvt*scrollWithBuffer:     false
 URxvt*mouseWheelScrollPage: false
 
 ! transparency
-URxvt*transparent:          true
+URxvt*transparent:         false 
 URxvt*shading:              85
-URxvt*tintColor:			#000000
+URxvt*tintColor:			#272822
 
 ! bell
 URxvt*urgentOnBell:			false
