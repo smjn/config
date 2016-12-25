@@ -1,6 +1,6 @@
 set nocompatible
 set ruler
-set number
+set relativenumber
 
 set incsearch
 " This shows what you are typing as a command.  I love this!
