@@ -204,6 +204,7 @@ client.urgent			$urgent-bg		$urgent-bg		$fg				$bar-bg
 #start applications
 exec nm-applet
 exec gnome-setting-daemon 
+exec sudo /usr/sbin/rfkill block wifi
 exec fluxgui
 exec feh --bg-scale ~/Pictures/focus.png
 exec_always "compton -f"
