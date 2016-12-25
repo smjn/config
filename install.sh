@@ -52,7 +52,7 @@ if [[ $noop -eq 0 ]]; then
 	tar -xvf /tmp/stardict.tgz -C ${prefix}/.local/share
 	fc-cache -fv
 	
-	wget 'https://www.dropbox.com/s/uixfxffntdhmzpk/vim.tgz?dl=0' -O /tmp/vim.tgz
+	wget 'https://www.dropbox.com/s/g4f8c43fnlzmzu0/vim.tgz?dl=0' -O /tmp/vim.tgz
 	tar -xvf /tmp/vim.tgz -C ${prefix}
 
 	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
