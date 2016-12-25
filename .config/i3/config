@@ -129,12 +129,12 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-set $bg				#1a1d13
-set $inactive-bg	#1a1d13
+set $bg				#1a1a13
+set $inactive-bg	#1a1a13
 set $fg				#f3f4f5
 set $inactive-fg	#676e70
 set $urgent-bg		#e53935
-set $bar-bg			#1a1d13
+set $bar-bg			#1a1a13
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
