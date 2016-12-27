@@ -86,7 +86,7 @@ URxvt*borderColor:                    #1a1d13
 !URxvt*color14:                        #93a1a1
 !URxvt*color15:                        #fdf6e3
 !URxvt*borderColor:                    #000000
-!URxvt*colorBD:						  #f5d605
+URxvt*colorBD:						  #f8f8f2
 
 
 URxvt*saveLines: 			3000
