@@ -169,7 +169,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
-bindsym $mod+Shift+x exec bash $HOME/programs/bash/locker.sh 5 $HOME/Pictures/focus.png
+bindsym $mod+Shift+x exec bash $HOME/programs/bash/locker.sh 5 $HOME/Pictures/focus2.png
 bindsym Print exec gnome-screenshot -f $HOME/Pictures/screenshot/Screenshot-`date +%d-%m-%Y-%H:%M:%S`.png
 bindsym Shift+Print exec gnome-screenshot -w -f $HOME/Pictures/screenshot/Screenshot-`date +%d-%m-%Y-%H:%M:%S`.png
 bindsym $mod+Shift+Print exec gnome-screenshot -a -f $HOME/Pictures/screenshot/Screenshot-`date +%d-%m-%Y-%H:%M:%S`.png
@@ -207,6 +207,6 @@ exec nm-applet
 exec gnome-setting-daemon 
 exec sudo /usr/sbin/rfkill block wifi
 exec fluxgui
-exec feh --bg-scale ~/Pictures/focus.png
+exec feh --bg-scale ~/Pictures/focus2.png
 exec_always "compton -f"
 exec_always "xset -b"
