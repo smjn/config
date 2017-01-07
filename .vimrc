@@ -8,7 +8,7 @@ if &term =~ '^screen'
 	" Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
 	execute "set t_kP=\e[5;*~"
 	execute "set t_kN=\e[6;*~"
-	
+
 	" Arrow keys http://unix.stackexchange.com/a/34723
 	execute "set <xUp>=\e[1;*A"
 	execute "set <xDown>=\e[1;*B"
@@ -39,3 +39,10 @@ vnoremap // y/<C-R>"<CR>
 "noremap <Right> <Nop>
 set path+=**
 set wildmenu
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_altv = 1
+let g:netrw_browse_split = 4
+cnoremap nt Lexplore <CR>
+set mouse=a
