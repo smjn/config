@@ -207,6 +207,7 @@ exec nm-applet
 exec gnome-setting-daemon 
 exec sudo /usr/sbin/rfkill block wifi
 exec fluxgui
-exec feh --bg-scale ~/Pictures/dots.png
+exec feh --bg-center ~/Pictures/red-panda.png
 exec_always "compton -f"
 exec_always "xset -b"
+exec_always numlockx
