@@ -16,6 +16,9 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 call pathogen#infect()
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 set vb
