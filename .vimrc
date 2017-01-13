@@ -48,6 +48,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 cnoremap nt! Lexplore <CR>
+map <C-n> :NERDTreeToggle<CR>
 
 "global variables
 let g:syntastic_always_populate_loc_list = 1
