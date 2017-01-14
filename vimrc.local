@@ -58,7 +58,6 @@ nore , ;
 "nnoremap > :tabn<CR>
 command C let @/=""
 cnoremap w!! w !sudo tee >/dev/null %
-colorscheme koehler
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
 set t_Co=256
