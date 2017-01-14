@@ -58,10 +58,8 @@ fi
 plugins=(git debian common-aliases sublime zsh-syntax-highlighting)
 
 # User configuration
-
-export GOROOT=/opt/go
-export GOPATH=~/programs/gocode
-export PATH=$GOROOT/bin:$GOPATH/bin:$HOME/bin:/usr/local/bin:android/platform-tools:$PATH
+. $HOME/.profile
+export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:android/platform-tools:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
