@@ -211,3 +211,4 @@ exec feh --bg-center ~/Pictures/red-panda.png
 exec_always "compton -f"
 exec_always "xset -b"
 exec_always numlockx
+exec synclient touchpadOff=1
