@@ -1,4 +1,3 @@
-;; start package.el with emacs
 (require 'package)
 ;; add HELPA to repo list
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
@@ -52,6 +51,7 @@
 (linum-relative-global-mode)
 
 (cua-mode t)
+(setq-default gofmt-command "goimports")
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 (add-hook 'before-save-hook 'gofmt-before-save)
 (require 'go-autocomplete)
