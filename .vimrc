@@ -73,6 +73,12 @@ let g:airline_powerline_fonts = 1
 let g:go_fmt_command = "goimports"
 "vim go end
 
+"nerdcommenter start
+let g:NERDSpaceDelims = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDDefaultAlign = 'left'
+"nerdcommenter end
+
 "general mappings & remaps
 map <C-i> gg=G<CR>
 command! -range=% -nargs=0 T2S execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
