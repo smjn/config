@@ -61,6 +61,13 @@ map <C-n> :NERDTreeToggle<CR>
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:EclimCompletionMethod = 'omnifunc'
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.java = '\k\.\k*'
+let g:neocomplete#force_omni_input_patterns.scala = '\k\.\k*'
 "neocomplete end
 
 "airline start

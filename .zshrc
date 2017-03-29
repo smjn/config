@@ -59,7 +59,7 @@ plugins=(git debian common-aliases sublime zsh-syntax-highlighting)
 
 # User configuration
 . $HOME/.profile
-export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:android/platform-tools:$PATH
+export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:/media/dumps/linux-setups/android-sdk-linux/platform-tools:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -97,7 +97,7 @@ alias g++11="g++ -std=c++11"
 alias t2="tmux -2 -u"
 alias vimx="vim '+set t_ut='"
 alias zsrc='source /home/sushant/.zshrc'
-alias axe='axel -n30 -a'
+alias axe='axel -n20 -a'
 alias PUB='git add .; echo -n "message? "; read msg; gcmsg $msg; ggpush'
 alias POW='please poweroff'
 alias REB='please reboot'

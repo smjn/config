@@ -3,7 +3,6 @@ set ruler
 set relativenumber
 set number
 
-set incsearch
 " This shows what you are typing as a command.  I love this!
 set showcmd
 "
