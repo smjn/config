@@ -112,6 +112,7 @@ alias i3rc='vim ~/.config/i3/config'
 alias IB='bash ~/programs/bash/bright.sh'
 alias DB='bash ~/programs/bash/bright.sh 1'
 alias gaan='mpd; ncmpcpp -s search_engine -S visualizer'
+alias rebootnet='sudo systemctl restart NetworkManager'
 
 #alias htop='htop -C'
 

@@ -36,9 +36,11 @@ set $terminal2 xfce4-terminal --hide-menubar --hide-toolbar --hide-scrollbar
 # start a terminal
 bindsym $mod+Return exec $terminal #i3-sensible-terminal
 bindsym $mod+t exec $terminal2 #i3-sensible-terminal
+bindsym $mod+c exec zenity --calendar #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
+bindsym --release button2 kill
 
 # start dmenu (a program launcher)
 
