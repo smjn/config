@@ -18,7 +18,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:SFNS Regular 10
+font pango:SFNS Regular 11
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -133,12 +133,12 @@ bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-set $bg				#111111
-set $inactive-bg	#111111
-set $fg				#f3f4f5
-set $inactive-fg	#676e70
-set $urgent-bg		#e53935
-set $bar-bg			#111111
+set $bg				#2F343F
+set $inactive-bg	#2F343F
+set $fg				#F3F4F5
+set $inactive-fg	#676E7d
+set $urgent-bg		#E53935
+set $bar-bg			#2F343F
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
