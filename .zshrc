@@ -59,7 +59,7 @@ plugins=(git debian common-aliases sublime zsh-syntax-highlighting)
 
 # User configuration
 . $HOME/.profile
-export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:/media/dumps/linux-setups/android-sdk-linux/platform-tools:$PATH
+export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

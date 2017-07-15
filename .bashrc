@@ -111,3 +111,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+export GOPATH=$HOME/programs/gocode
+export GOROOT=/opt/go
+export GOBIN=$GOPATH/bin
+export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:$PATH
+
+

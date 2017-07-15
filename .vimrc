@@ -25,6 +25,7 @@ colorscheme jellybeans
 "colorscheme solarized.orig
 
 set cursorline
+set cursorcolumn
 "hi Normal ctermbg=none
 "hi NonText ctermbg=none
 hi Visual ctermbg=darkblue ctermfg=black
@@ -38,7 +39,7 @@ set path+=**
 set wildmenu
 
 "enable mouse
-set mouse=a
+"set mouse=a
 
 "syntastic
 set statusline+=%#warningmsg#
@@ -51,6 +52,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_js_checkers=['jslint']
 let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
 let g:syntastic_quiet_messages = {"level":"warnings"}
+let g:tern_show_argument_hints='on_hold'
+let g:tern_map_keys=1
 "syntastic end
 
 "nerdtree
@@ -61,7 +64,6 @@ map <C-n> :NERDTreeToggle<CR>
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:EclimCompletionMethod = 'omnifunc'
 
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -88,6 +90,7 @@ let g:NERDDefaultAlign = 'left'
 
 "general mappings & remaps
 map <C-i> gg=G<CR>
+nmap <F4> :w<CR>:make<CR>:cw<CR>
 command! -range=% -nargs=0 T2S execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
 command! -range=% -nargs=0 S2T execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
 "mappings done

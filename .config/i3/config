@@ -210,7 +210,7 @@ exec nm-applet
 exec volti
 exec gnome-setting-daemon 
 exec sudo /usr/sbin/rfkill block wifi
-exec fluxgui
+exec redshift
 exec_always feh --bg-scale ~/Pictures/mkbhd6.jpg
 exec_always "compton -f"
 exec_always "xset -b"
