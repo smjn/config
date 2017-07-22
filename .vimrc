@@ -21,15 +21,15 @@ call pathogen#infect()
 set vb
 set t_Co=256
 set background=dark
-colorscheme jellybeans 
+colorscheme solarized
 "colorscheme solarized.orig
 
 set cursorline
 set cursorcolumn
-"hi Normal ctermbg=none
+"hi Normal ctermbg=3
 "hi NonText ctermbg=none
-hi Visual ctermbg=darkblue ctermfg=black
-hi CursorLine cterm=none ctermbg=black cterm=none
+hi Visual ctermbg=8 ctermfg=2
+hi CursorLine cterm=none ctermbg=0 cterm=none
 
 "vnoremap // y/<C-R>"<CR>
 "noremap <Up> <Nop>

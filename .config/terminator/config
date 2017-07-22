@@ -60,7 +60,7 @@
     background_darkness = 0.9
     background_type = transparent
     cursor_color = "#90908f"
-    font = DejaVu Sans Mono for Powerline 11
+    font = DejaVu Sans Mono for Powerline 13
     foreground_color = "#92ac03"
     palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = hidden
@@ -70,7 +70,7 @@
     background_darkness = 0.9
     background_type = transparent
     cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 11
+    font = DejaVu Sans Mono for Powerline 13
     foreground_color = "#92ac03"
     palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = disabled
@@ -80,7 +80,7 @@
     background_darkness = 0.9
     background_type = transparent
     cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 11
+    font = DejaVu Sans Mono for Powerline 13
     foreground_color = "#859900"
     palette = "#000000:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#777777:#cb4b16:#586e75:#f5d605:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = hidden
@@ -88,7 +88,7 @@
     use_system_font = False
   [[solar2]]
     cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 11
+    font = DejaVu Sans Mono for Powerline 13
     foreground_color = "#859900"
     palette = "#000000:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#777777:#cb4b16:#586e75:#f5d605:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = hidden
@@ -99,7 +99,7 @@
     background_darkness = 0.92
     background_type = transparent
     cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 11
+    font = DejaVu Sans Mono for Powerline 13
     foreground_color = "#00ff00"
     palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
     scrollbar_position = disabled
