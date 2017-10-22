@@ -56,8 +56,8 @@ if [[ $noop -eq 0 ]]; then
 	tar -xvf /tmp/vim.tgz -C ${prefix}
 
 	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
+	ln -sf ${repo}/.config/redshift.conf ${prefix}/.config/redshift.conf
 
 	ln -sf ${prefix}/.vim ${prefix}/.config/nvim
-	ln -sf ${prefix}/.config/redshift.conf ${prefix}/.config/redshift.conf
 	ln -sf ${repo}/init.vim ${prefix}/.config/nvim/init.vim
 fi
