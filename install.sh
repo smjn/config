@@ -37,6 +37,7 @@ echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes
 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
 
 if [[ $noop -eq 0 ]]; then
+	sudo apt-get install git p7zip-full || { echo "could not install deps"; exit 1; }
 	mkdir -p ${prefix}/.config/{terminator,i3,xfce4/terminator}
 	ln -sf ${repo}/.config/terminator/config ${prefix}/.config/terminator/config
 	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
@@ -45,6 +46,15 @@ if [[ $noop -eq 0 ]]; then
 
 	ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
 	ln -sf ${repo}/.i3status.conf ${prefix}/.i3status.conf
+
+	git clone https://github.com/powerline/fonts /tmp/fonts
+	bash /tmp/fonts/install.sh
+
+	wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
+	7z x /tmp/overpass.zip
+	mv overpass overpass-mono ~/.local/share/fonts/
+	fc-cache -fv
+
 	wget 'https://www.dropbox.com/s/f293v4w310inrut/stardict.tgz?dl=0' -O /tmp/stardict.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}
 
