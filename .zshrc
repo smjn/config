@@ -98,7 +98,7 @@ alias t2="tmux -2 -u"
 alias vimx="vim '+set t_ut='"
 alias zsrc='source ~/.zshrc'
 alias axe='axel -n10 -a'
-alias PUB='git add .; echo -n "message? "; read msg; gcmsg $msg; ggpush'
+alias PUB='git add . && echo -n "message? " && read msg && gcmsg $msg && ggpush'
 alias POW='please poweroff'
 alias REB='please reboot'
 alias vimrc='vim ~/.vimrc'

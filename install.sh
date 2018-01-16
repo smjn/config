@@ -38,7 +38,11 @@ echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/termi
 
 if [[ $noop -eq 0 ]]; then
 	sudo apt-get install git p7zip-full || { echo "could not install deps"; exit 1; }
-	mkdir -p ${prefix}/.config/{terminator,i3,xfce4/terminator}
+	git clone https://github.com/smjn/programs ~/programs
+	mv ${prefix}/.zshrc{,.bak}
+	mv ${prefix}/.bashrc{,.bak}
+	mv ${prefix}/.vimrc{,.bak}
+	mkdir -p ${prefix}/.config/{terminator,i3,xfce4/terminal}
 	ln -sf ${repo}/.config/terminator/config ${prefix}/.config/terminator/config
 	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
 	ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
