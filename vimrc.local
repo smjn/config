@@ -50,6 +50,9 @@ set title
 set titlelen=20
 set laststatus=2
 set isfname-==  
+set dictionary+=/usr/share/dict/american-english
+set complete+=k
+set undofile
 
 nore ; :
 nore , ;
@@ -57,6 +60,8 @@ nore , ;
 "nnoremap > :tabn<CR>
 command C let @/=""
 cnoremap w!! w !sudo tee >/dev/null %
+map <C-i> gg=G<CR>
+map <C-h> :set hlsearch!<CR>
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
 set t_Co=256

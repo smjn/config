@@ -2,7 +2,8 @@ if &term =~ '256color'
 	set t_ut=
 endif
 
-" teach of keys
+""""" teach of keys for different environments (tmux)
+
 if &term =~ '^screen'
 	" Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
 	execute "set t_kP=\e[5;*~"
@@ -15,41 +16,30 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 
-" pathogen plugin installer
-call pathogen#infect()
+""""" end teaching keys
 
-set vb
-set t_Co=256
-set background=dark
-colorscheme jellybeans
-"colorscheme solarized.orig
-set dictionary+=/usr/share/dict/american-english
-set complete+=k
-set undofile
+""""" from https://github.com/junegunn/vim-plug README
 
-set cursorline
-"hi Normal ctermbg=8
-"hi NonText ctermbg=8
-hi Visual ctermbg=4 ctermfg=0
-hi CursorLine ctermbg=0
-set listchars=tab:>~,nbsp:_,trail:.
-set list
-runtime macros/matchit.vim
+call plug#begin('~/.vim/plugged')
 
-"vnoremap // y/<C-R>"<CR>
-"noremap <Up> <Nop>
+""""" start easy-align - plugin for align around a character fetches https://github.com/junegunn/vim-easy-align
 
-"file search
-set path+=**
-set wildmenu
+Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
-"enable mouse
-"set mouse=a
+""""" easy-align end
 
-"syntastic
+""""" start syntastic - plugin for static syntax checks for multiple languages
+
+Plug 'vim-syntastic/syntastic'
+"syntastic statusline info
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+"syntastic global flags, related to actions
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -59,13 +49,21 @@ let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
 let g:syntastic_quiet_messages = {"level":"warnings"}
 let g:tern_show_argument_hints='on_hold'
 let g:tern_map_keys=1
-"syntastic end
 
-"nerdtree
+""""" end syntastic
+
+""""" start nerdtree 
+
+Plug 'scrooloose/nerdtree'
+"handy shortcut for nerd tree
 map <C-n> :NERDTreeToggle<CR>
-"nerdtree end
 
-"neocomplete start
+""""" end nerdtree
+
+""""" start neocomplete - for autocomplete from history/docs/fs
+
+Plug 'Shougo/neocomplete'
+"neocomplete config
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -75,31 +73,41 @@ if !exists('g:neocomplete#force_omni_input_patterns')
 endif
 let g:neocomplete#force_omni_input_patterns.java = '\k\.\k*'
 let g:neocomplete#force_omni_input_patterns.scala = '\k\.\k*'
-"neocomplete end
 
-"airline start
+""""" end neocomplete
+
+""""" start vim-airline - for status bar
+
+Plug 'vim-airline/vim-airline'
+"airline config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline_powerline_fonts = 1
-"airline end
 
-"vim go start
+""""" end vim-airline
+
+
+""""" start vim-go
+
+Plug 'fatih/vim-go'
+"vim-go config
 let g:go_fmt_command = "goimports"
-"vim go end
 
-"vim markdown start
-let vim_markdown_preview_github=1
-"vim markdown end
+""""" end vim-go
 
-"closetag start
+""""" start closetag - to insert end tags in web markup
+
+Plug 'alvan/vim-closetag'
+"closetag config
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.htm'
-"closetag end
 
-"general mappings & remaps
-map <C-i> gg=G<CR>
-map <C-h> :set hlsearch!<CR>
-nmap <F4> :w<CR>:make<CR>:cw<CR>
-"beautification
+
+""""" end closetag
+
+""""" start vm-jsbeautify - for web scripting
+
+Plug 'maksimr/vim-jsbeautify'
+"vim-jsbeautify config
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " for json
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
@@ -109,8 +117,58 @@ autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-"mappings done
 
-"snippets
-"end snippets
+""""" end vm-jsbeautify
 
+""""" start snippets
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+""""" end snippets
+
+""""" start comments plugin
+
+Plug 'tpope/vim-commentary'
+
+""""" end comments
+
+""""" start surround
+
+Plug 'tpope/vim-surround'
+
+""""" end surround
+
+""""" start ctrlp - fast file search
+
+Plug 'kien/ctrlp.vim'
+
+""""" end ctrlp
+
+""""" start colorschemes - large collection of vim co
+
+Plug 'flazz/vim-colorschemes'
+
+""""" end colorschemes
+
+""""" start colorschemes - large collection of vim co
+
+Plug 'lifepillar/vim-solarized8'
+
+""""" end colorschemes
+
+
+call plug#end()
+
+""""" some ui stuff
+
+"so entire background looks better
+set background=dark
+
+"theme name
+colorscheme molokai
+hi Visual ctermbg=4 ctermfg=0
+"show some characters instead of white space
+set listchars=tab:>~,nbsp:_,trail:.
+set list
+
+""""" end ui stuff
