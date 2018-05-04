@@ -23,12 +23,18 @@ set t_Co=256
 set background=dark
 colorscheme jellybeans
 "colorscheme solarized.orig
+set dictionary+=/usr/share/dict/american-english
+set complete+=k
+set undofile
 
 set cursorline
-"hi Normal ctermbg=3
-"hi NonText ctermbg=none
-hi Visual ctermbg=8 ctermfg=2
-hi CursorLine cterm=none ctermbg=0 cterm=none
+"hi Normal ctermbg=8
+"hi NonText ctermbg=8
+hi Visual ctermbg=4 ctermfg=0
+hi CursorLine ctermbg=0
+set listchars=tab:>~,nbsp:_,trail:.
+set list
+runtime macros/matchit.vim
 
 "vnoremap // y/<C-R>"<CR>
 "noremap <Up> <Nop>
@@ -48,7 +54,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_js_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
 let g:syntastic_quiet_messages = {"level":"warnings"}
 let g:tern_show_argument_hints='on_hold'
@@ -65,7 +71,7 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
+	let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.java = '\k\.\k*'
 let g:neocomplete#force_omni_input_patterns.scala = '\k\.\k*'
@@ -81,16 +87,30 @@ let g:airline_powerline_fonts = 1
 let g:go_fmt_command = "goimports"
 "vim go end
 
-"nerdcommenter start
-let g:NERDSpaceDelims = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDDefaultAlign = 'left'
-"nerdcommenter end
+"vim markdown start
+let vim_markdown_preview_github=1
+"vim markdown end
+
+"closetag start
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.htm'
+"closetag end
 
 "general mappings & remaps
 map <C-i> gg=G<CR>
+map <C-h> :set hlsearch!<CR>
 nmap <F4> :w<CR>:make<CR>:cw<CR>
-command! -range=% -nargs=0 T2S execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
-command! -range=% -nargs=0 S2T execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
+"beautification
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 "mappings done
+
+"snippets
+"end snippets
 

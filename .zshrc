@@ -89,9 +89,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias APT='sudo apt-get update'
-alias APTU='sudo apt-get update && sudo apt-get upgrade'
-alias AP='sudo apt-get'
+alias APT='sudo apt-fast update'
+alias AR='sudo apt -y autoremove && sudo apt -y clean && sudo apt -y autoclean'
+alias APTU='sudo apt-fast update && sudo apt-fast -y upgrade && sudo apt-fast -y dist-upgrade'
+alias AP='sudo apt-fast'
 alias AS='apt-cache search'
 alias g++11="g++ -std=c++11"
 alias t2="tmux -2 -u"
@@ -113,7 +114,7 @@ alias IB='bash ~/programs/bash/bright.sh'
 alias DB='bash ~/programs/bash/bright.sh 1'
 alias gaan='mpd; ncmpcpp -s search_engine -S visualizer'
 alias rebootnet='sudo systemctl restart NetworkManager'
-
+alias -s go='vim'
 #alias htop='htop -C'
 
 #.dircolors.ansi-dark
