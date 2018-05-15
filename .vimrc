@@ -150,11 +150,11 @@ Plug 'flazz/vim-colorschemes'
 
 """"" end colorschemes
 
-""""" start colorschemes - large collection of vim co
+""""" start solorized theme - better solorized 
 
 Plug 'lifepillar/vim-solarized8'
 
-""""" end colorschemes
+""""" end solarized
 
 
 call plug#end()
@@ -162,10 +162,10 @@ call plug#end()
 """"" some ui stuff
 
 "so entire background looks better
-set background=dark
+" set background=dark
 
 "theme name
-colorscheme molokai
+colorscheme jellybeans
 hi Visual ctermbg=4 ctermfg=0
 "show some characters instead of white space
 set listchars=tab:>~,nbsp:_,trail:.
