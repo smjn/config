@@ -1,8 +1,11 @@
 [global_config]
+  borderless = True
   focus = system
-  hide_from_taskbar = True
+  title_font = Hack 11.2998046875
+  title_use_system_font = False
 [keybindings]
-  hide_window = F12
+  cycle_next = <Primary>Tab
+  hide_window = <Primary>Escape
   split_horiz = <Primary><Shift>o
   split_vert = <Primary><Shift>e
   switch_to_tab_1 = <Alt>1
@@ -26,41 +29,28 @@
   [[dropdown]]
     [[[child0]]]
       fullscreen = False
+      last_active_term = 42da5e10-c449-4f04-b345-fcc5bdc101ec
       last_active_window = True
       maximised = False
       order = 0
       parent = ""
-      position = 0:25
-      size = 1366, 562
+      position = 83:487
+      size = 1195, 452
       title = sushant@zen3: ~
       type = Window
-    [[[child1]]]
-      active_page = 1
-      labels = None, None
-      last_active_term = 08ca307b-66a4-4351-a6a5-4623d29fd542, b4207e92-8038-473d-a549-b5f156a7d60b
+    [[[terminal1]]]
       order = 0
       parent = child0
-      type = Notebook
-    [[[terminal2]]]
-      command = ranger
-      order = 0
-      parent = child1
-      profile = solar
+      profile = dropdown
       type = Terminal
-      uuid = 08ca307b-66a4-4351-a6a5-4623d29fd542
-    [[[terminal3]]]
-      order = 1
-      parent = child1
-      profile = solar
-      type = Terminal
-      uuid = b4207e92-8038-473d-a549-b5f156a7d60b
+      uuid = 42da5e10-c449-4f04-b345-fcc5bdc101ec
 [plugins]
 [profiles]
   [[default]]
     background_darkness = 0.9
     background_type = transparent
     cursor_color = "#90908f"
-    font = DejaVu Sans Mono for Powerline 13
+    font = Hack 11.3
     foreground_color = "#92ac03"
     palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = hidden
@@ -69,18 +59,18 @@
   [[dropdown]]
     background_darkness = 0.9
     background_type = transparent
-    cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 13
-    foreground_color = "#92ac03"
-    palette = "#073642:#dc322f:#859900:#b58900:#ffffff:#d33682:#2aa198:#eee8d5:#268bd2:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    scrollbar_position = disabled
+    font = Hack 11.2998046875
+    foreground_color = ""
+    palette = "#1a1d13:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f8f8f2:#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f9f8f5"
+    scrollback_lines = 10000
+    scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
   [[solar]]
     background_darkness = 0.9
     background_type = transparent
     cursor_color = "#859900"
-    font = DejaVu Sans Mono for Powerline 13
+    font = Hack 16
     foreground_color = "#859900"
     palette = "#000000:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#777777:#cb4b16:#586e75:#f5d605:#839496:#6c71c4:#93a1a1:#fdf6e3"
     scrollbar_position = hidden
@@ -94,7 +84,6 @@
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
-
   [[test]]
     background_darkness = 0.92
     background_type = transparent
