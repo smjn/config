@@ -83,7 +83,7 @@ if [[ $noop -eq 0 ]]; then
 	#setup bumblebee
 	git clone git://github.com/tobi-wan-kenobi/bumblebee-status /tmp/bumblebee
 	sudo mv /tmp/bumblebee /opt/bumblebee
-	sudo ugo+rx /opt/bumblebee
+	sudo chmod ugo+rx /opt/bumblebee
 
 	sudo apt-get install python-{netifaces,power,requests,dbus}
 
