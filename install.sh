@@ -37,27 +37,55 @@ echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes
 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
 
 if [[ $noop -eq 0 ]]; then
-	sudo apt-get install git p7zip-full || { echo "could not install deps"; exit 1; }
+	#prereqs
+	sudo apt-get install git p7zip-full terminator xfce4-terminal zsh vim vim-nox i3 feh redshift-gtk python python3 || { echo "could not install deps"; exit 1; }
 	git clone https://github.com/smjn/programs ~/programs
+
+	#optional
+	sudo apt-get install tilix 2>/dev/null
+
+	#setup oh-my-zsh
+	if ! [[ -d "${prefix}/.oh-my-zsh" ]]; then 
+		sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+	fi
+	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
+	ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
+
+	#link important rcs
 	mv ${prefix}/.zshrc{,.bak}
 	mv ${prefix}/.bashrc{,.bak}
 	mv ${prefix}/.vimrc{,.bak}
+
+	ln -sf ${repo}/.zshrc ${prefix}/.zshrc
+	ln -sf ${repo}/.bashrc ${prefix}/.bashrc
+	ln -sf ${repo}/.vimrc ${prefix}/.vimrc
+
 	mkdir -p ${prefix}/.config/{terminator,i3,xfce4/terminal}
 	ln -sf ${repo}/.config/terminator/config ${prefix}/.config/terminator/config
-	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
 	ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
-	ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
 
 	ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
 	ln -sf ${repo}/.i3status.conf ${prefix}/.i3status.conf
 
+	#setup fonts
 	git clone https://github.com/powerline/fonts /tmp/fonts
 	bash /tmp/fonts/install.sh
 
 	wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
 	7z x /tmp/overpass.zip
 	mv overpass overpass-mono ~/.local/share/fonts/
+
+	wget -L 'https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip' -O /tmp/fa.zip
+	unzip /tmp/fa.zip
+	mv font-awesome-4.7.0 ~/.local/share/fonts/
 	fc-cache -fv
+
+	#setup bumblebee
+	git clone git://github.com/tobi-wan-kenobi/bumblebee-status /tmp/bumblebee
+	sudo mv /tmp/bumblebee /opt/bumblebee
+	sudo ugo+rx /opt/bumblebee
+
+	sudo apt-get install python-{netifaces,power,requests,dbus}
 
 	wget 'https://www.dropbox.com/s/f293v4w310inrut/stardict.tgz?dl=0' -O /tmp/stardict.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}
