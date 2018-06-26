@@ -38,7 +38,7 @@ echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/termi
 
 if [[ $noop -eq 0 ]]; then
 	#prereqs
-	sudo apt-get install git p7zip-full terminator xfce4-terminal zsh vim vim-nox i3 feh redshift-gtk python python3 || { echo "could not install deps"; exit 1; }
+	sudo apt-get install git p7zip-full terminator xfce4-terminal zsh vim vim-nox i3 feh redshift-gtk python python3 compton || { echo "could not install deps"; exit 1; }
 	git clone https://github.com/smjn/programs ~/programs
 
 	#optional
