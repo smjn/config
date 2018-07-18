@@ -176,3 +176,12 @@ set listchars=tab:>~,nbsp:_,trail:.,extends:<,precedes:-
 set list
 
 """"" end ui stuff
+
+"tab shorts from https://www.youtube.com/watch?v=1QD3u6NC5KU
+nnoremap tn :tabnew<Space>
+
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
