@@ -156,6 +156,10 @@ Plug 'lifepillar/vim-solarized8'
 
 """"" end solarized
 
+"python stuff
+Plug 'python-mode/python-mode'
+"end python stuff
+
 
 call plug#end()
 
@@ -168,7 +172,7 @@ call plug#end()
 colorscheme jellybeans
 hi Visual ctermbg=4 ctermfg=0
 "show some characters instead of white space
-set listchars=tab:>~,nbsp:_,trail:.
+set listchars=tab:>~,nbsp:_,trail:.,extends:<,precedes:-
 set list
 
 """"" end ui stuff

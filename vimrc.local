@@ -16,7 +16,7 @@ filetype plugin indent on
 syntax enable
 
 " Spaces are better than a tab character
-" set expandtab
+set expandtab
 set smarttab
 
 " Who wants an 8 character tab?  Not me!

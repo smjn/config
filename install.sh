@@ -25,6 +25,46 @@ done
 
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
+function installFonts() {
+    #overpass
+	wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
+	7z x /tmp/overpass.zip
+	mv overpass overpass-mono ~/.local/share/fonts/
+
+    #ubuntu fonts
+	wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
+	tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
+
+    fc-cache -fv
+}
+
+function installDownloads() {
+    #chrome
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    sudo apt-get update && sudo apt install google-chrome-stable
+
+    #firefox relies on the chrome installations .desktop file
+    wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
+    pushd /tmp
+    tar -xvf firefox.tar.bz2
+    sudo mv firefox /opt/firefox
+    popd
+    cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
+    sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
+    sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+
+    #vscode
+    wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
+    sudo dpkg -i /tmp/code.deb
+    sudo apt-get -f install
+
+    #bumblebee status
+    git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.config/i3/
+    sudo apt-get install python-pip
+    sudo pip install psutil netifaces requests power dbus i3ipc
+}
+
 for i in $(ls -a)
 do
 	[[ "$i" = "install.sh" || "$i" = ".gitignore" || ! -f "$i" || -e "${prefix}/$i" || "$i" == "README.md" || "$i" == "soft.sh" || "$i" == "login.sh" || "$i" == "vimrc.local" ]] && continue
@@ -32,74 +72,37 @@ do
 	[[ $noop -eq 0 ]] && ln -sf ${repo}/$i ${prefix}/$i;
 done
 
-echo "${prefix}/.config/terminator/config -> ${repo}/.config/terminator/config"
 echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
 
 if [[ $noop -eq 0 ]]; then
-	#prereqs
-	sudo apt-get install git p7zip-full terminator xfce4-terminal zsh vim vim-nox i3 feh redshift-gtk python python3 compton || { echo "could not install deps"; exit 1; }
+	sudo apt-get update && sudo apt-get install git p7zip-full zsh tilix i3 rofi || { echo "could not install deps"; exit 1; }
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	git clone https://github.com/smjn/programs ~/programs
-
-	#optional
-	sudo apt-get install tilix 2>/dev/null
-
-	#setup oh-my-zsh
-	if ! [[ -d "${prefix}/.oh-my-zsh" ]]; then 
-		sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-	fi
-	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
-	ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
-
-	#link important rcs
 	mv ${prefix}/.zshrc{,.bak}
 	mv ${prefix}/.bashrc{,.bak}
 	mv ${prefix}/.vimrc{,.bak}
 
+	mkdir -p ${prefix}/.config/{i3,xfce4/terminal}
+	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
+	ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
+	ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
 	ln -sf ${repo}/.zshrc ${prefix}/.zshrc
 	ln -sf ${repo}/.bashrc ${prefix}/.bashrc
 	ln -sf ${repo}/.vimrc ${prefix}/.vimrc
+	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
 
-	mkdir -p ${prefix}/.config/{terminator,i3,xfce4/terminal}
-	ln -sf ${repo}/.config/terminator/config ${prefix}/.config/terminator/config
-	ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
 
 	ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
 	ln -sf ${repo}/.i3status.conf ${prefix}/.i3status.conf
 
-	#setup fonts
 	git clone https://github.com/powerline/fonts /tmp/fonts
 	bash /tmp/fonts/install.sh
 
-	wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
-	7z x /tmp/overpass.zip
-	mv overpass overpass-mono ~/.local/share/fonts/
-
-	wget -L 'https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip' -O /tmp/fa.zip
-	unzip /tmp/fa.zip
-	mv font-awesome-4.7.0 ~/.local/share/fonts/
-	fc-cache -fv
-
-	#setup bumblebee
-	git clone git://github.com/tobi-wan-kenobi/bumblebee-status /tmp/bumblebee
-	sudo mv /tmp/bumblebee /opt/bumblebee
-	sudo chmod ugo+rx /opt/bumblebee
-
-	sudo apt-get install python-{netifaces,power,requests,dbus}
-
+    #dictionary
 	wget 'https://www.dropbox.com/s/f293v4w310inrut/stardict.tgz?dl=0' -O /tmp/stardict.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}
-
-	wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
-	tar -xvf /tmp/stardict.tgz -C ${prefix}/.local/share
-	fc-cache -fv
-	
-	wget 'https://www.dropbox.com/s/g4f8c43fnlzmzu0/vim.tgz?dl=0' -O /tmp/vim.tgz
-	tar -xvf /tmp/vim.tgz -C ${prefix}
-
-	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
-	ln -sf ${repo}/.config/redshift.conf ${prefix}/.config/redshift.conf
-
-	ln -sf ${prefix}/.vim ${prefix}/.config/nvim
-	ln -sf ${repo}/init.vim ${prefix}/.config/nvim/init.vim
+    installFonts
+    installDownloads
 fi
+

@@ -117,4 +117,6 @@ export GOROOT=/opt/go
 export GOBIN=$GOPATH/bin
 export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:$PATH
 
-
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+	fi
