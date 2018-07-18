@@ -26,43 +26,43 @@ done
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
 function installFonts() {
-    #overpass
+	#overpass
 	wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
 	7z x /tmp/overpass.zip
 	mv overpass overpass-mono ~/.local/share/fonts/
 
-    #ubuntu fonts
+	#ubuntu fonts
 	wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
 	tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
 
-    fc-cache -fv
+	fc-cache -fv
 }
 
 function installDownloads() {
-    #chrome
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    sudo apt-get update && sudo apt install google-chrome-stable
-
-    #firefox relies on the chrome installations .desktop file
-    wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
-    pushd /tmp
-    tar -xvf firefox.tar.bz2
-    sudo mv firefox /opt/firefox
-    popd
-    cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
-    sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
-    sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
-
-    #vscode
-    wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
-    sudo dpkg -i /tmp/code.deb
-    sudo apt-get -f install
-
-    #bumblebee status
-    git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.config/i3/
-    sudo apt-get install python-pip
-    sudo pip install psutil netifaces requests power dbus i3ipc
+	#chrome
+	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+	sudo apt-get update && sudo apt install google-chrome-stable
+	
+	#firefox relies on the chrome installations .desktop file
+	wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
+	pushd /tmp
+	tar -xvf firefox.tar.bz2
+	sudo mv firefox /opt/firefox
+	popd
+	cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
+	sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
+	sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+	
+	#vscode
+	wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
+	sudo dpkg -i /tmp/code.deb
+	sudo apt-get -f install
+	
+	#bumblebee status
+	git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.config/i3/
+	sudo apt-get install python-pip
+	sudo pip install psutil netifaces requests power dbus i3ipc
 }
 
 for i in $(ls -a)
@@ -77,7 +77,7 @@ echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/termi
 
 if [[ $noop -eq 0 ]]; then
 	sudo apt-get update && sudo apt-get install git p7zip-full zsh tilix i3 rofi || { echo "could not install deps"; exit 1; }
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	git clone https://github.com/smjn/programs ~/programs
 	mv ${prefix}/.zshrc{,.bak}
 	mv ${prefix}/.bashrc{,.bak}
@@ -99,10 +99,10 @@ if [[ $noop -eq 0 ]]; then
 	git clone https://github.com/powerline/fonts /tmp/fonts
 	bash /tmp/fonts/install.sh
 
-    #dictionary
+	#dictionary
 	wget 'https://www.dropbox.com/s/f293v4w310inrut/stardict.tgz?dl=0' -O /tmp/stardict.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}
-    installFonts
-    installDownloads
+	installFonts
+	installDownloads
 fi
 
