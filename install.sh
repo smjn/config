@@ -62,7 +62,8 @@ function installDownloads() {
 	#bumblebee status
 	git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.config/i3/
 	sudo apt-get install python-pip
-	sudo pip install psutil netifaces requests power dbus i3ipc
+	sudo pip install psutil netifaces requests power i3ipc
+    sudo pip install dbus
 }
 
 for i in $(ls -a)
@@ -76,8 +77,11 @@ echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes
 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
 
 if [[ $noop -eq 0 ]]; then
-	sudo apt-get update && sudo apt-get install git p7zip-full zsh tilix i3 rofi || { echo "could not install deps"; exit 1; }
+	sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi || { echo "could not install deps"; exit 1; }
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	installFonts
+	installDownloads
+
 	git clone https://github.com/smjn/programs ~/programs
 	mv ${prefix}/.zshrc{,.bak}
 	mv ${prefix}/.bashrc{,.bak}
@@ -102,7 +106,5 @@ if [[ $noop -eq 0 ]]; then
 	#dictionary
 	wget 'https://www.dropbox.com/s/f293v4w310inrut/stardict.tgz?dl=0' -O /tmp/stardict.tgz
 	tar -xvf /tmp/stardict.tgz -C ${prefix}
-	installFonts
-	installDownloads
 fi
 
