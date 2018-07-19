@@ -196,7 +196,7 @@ bar {
 	}
 	# i3bar position
 	position bottom 
-	status_command /opt/bumblebee/bumblebee-status -t gruvbox-powerline -m date time nic cpu memory disk:root battery
+	status_command ~/.bumblebee/bumblebee-status -t gruvbox-powerline -m date time nic cpu memory disk:root battery
 }
 
 #class			border  backgr. text    indicator

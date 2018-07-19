@@ -60,7 +60,7 @@ function installDownloads() {
 	sudo apt-get -f install
 	
 	#bumblebee status
-	git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.config/i3/
+	git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
 	sudo apt-get install python-pip
 	sudo pip install psutil netifaces requests power i3ipc
     sudo pip install dbus
