@@ -77,7 +77,7 @@ echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes
 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
 
 if [[ $noop -eq 0 ]]; then
-	sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi || { echo "could not install deps"; exit 1; }
+	sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs || { echo "could not install deps"; exit 1; }
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	installFonts
 	installDownloads
@@ -86,6 +86,7 @@ if [[ $noop -eq 0 ]]; then
 	mv ${prefix}/.zshrc{,.bak}
 	mv ${prefix}/.bashrc{,.bak}
 	mv ${prefix}/.vimrc{,.bak}
+    mv ${prefix}/.emacs{,.bak}
 
 	mkdir -p ${prefix}/.config/{i3,xfce4/terminal}
 	ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
@@ -94,6 +95,7 @@ if [[ $noop -eq 0 ]]; then
 	ln -sf ${repo}/.zshrc ${prefix}/.zshrc
 	ln -sf ${repo}/.bashrc ${prefix}/.bashrc
 	ln -sf ${repo}/.vimrc ${prefix}/.vimrc
+	ln -sf ${repo}/.emacs.d/init.el ${prefix}/.emacs.d/init.el
 	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
 
 
