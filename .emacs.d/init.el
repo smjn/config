@@ -1,6 +1,6 @@
 ;;; init.el --- SUMMARY - my config
 
-;;; Commentary: 
+;;; Commentary:
 ;;; my init.el
 
 ;;; Code:
@@ -20,21 +20,42 @@
 ;;; custom function to install my packages
 (defun my:installPackages()
   (setq pkg-list
-        '(jbeans-theme
-          use-package
-          flycheck
-          yasnippet
-          yasnippet-snippets
+        '(;; ac-c-headers
+          ;; ac-clang
+          ;; ac-html
+          ;; ac-html-angular
+          ;; ac-html-csswatcher
+          ;; ac-js2
+          ace-jump-mode
+          airline-themes
+          ;; auto-complete
+          ;; auto-complete-clang-async
+          comment-dwim-2
+          company
+          company-c-headers
+          company-ghc
+          company-go
+          company-jedi
+          company-lua
+          company-shell
+          company-go
+          company-tern
           evil
           evil-commentary
+          flycheck
+          gnutls
+          ivy
+          jbeans-theme
           linum-relative
-          airline-themes
-          comment-dwim-2
-          powerline
-          auto-complete
-          auto-complete-clang-async
+          lush-theme
+          neotree
           org-bullets
-          solarized-theme))
+          powerline
+          solarized-theme
+          swiper
+          use-package
+          yasnippet
+          yasnippet-snippets))
   (unless package-archive-contents
     (package-refresh-contents))
 
@@ -45,8 +66,8 @@
 ;;; for installing packages
 (require 'package)
 
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")) ; melpa larger collection than stable
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) ; default archives
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t) ; melpa collection of packages
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t) ; default archives
 
 ;; installed packages initialization
 (package-initialize)
@@ -65,10 +86,10 @@
   (linum-relative-global-mode))
 
 ;; start autocomplete with emacs
-(use-package auto-complete
-  :ensure t
-  :config
-  (ac-config-default))
+;; (use-package auto-complete
+;;   :ensure t
+;;   :config
+;;   (ac-config-default))
 
 ;; org mode specific stuff
 (use-package org-bullets
@@ -85,16 +106,22 @@
   (load-theme 'airline-dark t))
 
 ;; ui theme
-(use-package jbeans-theme
+;; (use-package jbeans-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'jbeans t))
+
+(use-package lush-theme
   :ensure t
   :config
-  (load-theme 'jbeans t))
+  (load-theme 'lush  t))
 
-;; for better comment action in native emacs
+
+;; for better commenting features in native emacs
 (use-package comment-dwim-2
   :ensure t
   :config
-  ( global-set-key (kbd "M-;") 'comment-dwim-2))
+  (global-set-key (kbd "M-;") 'comment-dwim-2))
 
 ;; vim mode and vim-commentary
 (use-package evil-commentary
@@ -122,10 +149,86 @@
   (yas-reload-all)
   (yas-global-mode 1))
 
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+  (global-company-mode))
+
+(use-package company-jedi
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup))
+
+(defun my:python-mode-hook()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my:python-mode-hook)
+
+(use-package company-irony
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-irony))
+
+(use-package company-shell
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-shell))
+
+(use-package irony
+  :ensure t
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+(use-package company-tern
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-tern)
+  (add-hook 'js2-mode-hook (lambda ()
+                             (tern-mode)
+                             (company-mode))))
+
+(use-package company-go
+  :ensure t
+  :config
+  (add-hook 'go-mode-hook (lambda ()
+                            (set (make-local-variable 'company-backends) '(company-go))
+                            (company-mode))))
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode t))
+
+(use-package swiper
+  :ensure t)
+
+(use-package neotree
+  :ensure t
+  :config
+  (add-hook 'neotree-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
+
+
 ;;; install package end
 
 ;; custom keys
-( global-set-key (kbd "C-M-k") (lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "C-M-k") (lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(global-set-key (kbd "M-/") 'undo-tree-visualize)
+(global-set-key (kbd "C-M-z") 'switch-to-next-buffer)
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "C-c C-s") 'isearch)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key [f8] 'neotree-toggle)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,3 +243,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(provide 'init)
+;;; init.el ends here
