@@ -30,32 +30,34 @@
           airline-themes
           ;; auto-complete
           ;; auto-complete-clang-async
-          comment-dwim-2
-          company
+          comment-dwim-2                ;better comments in native emacs
+          company                       ;better autocomplete
           company-c-headers
-          company-ghc
-          company-go
-          company-jedi
+          company-ghc    		;haskell :)
+          company-go                    ;golang autocomplete via company
+          company-irony                 ;company wrapper for irony (c/cpp completion)
+          company-jedi                  ;python autocomplete via company
           company-lua
-          company-shell
-          company-go
-          company-tern
-          evil
-          evil-commentary
-          flycheck
+          company-shell                 ;shell autocomplete via company
+          company-tern                  ;js autocomplete via company
+          evil                          ;vim mode
+          evil-commentary               ;tpopes vim commentary
+          flycheck                      ;syntax checker
           gnutls
-          ivy
-          jbeans-theme
-          linum-relative
-          lush-theme
-          neotree
-          org-bullets
-          powerline
+          helm
+          irony                         ;c/cpp completion backend
+          ivy                           ;replaces find file
+          jbeans-theme                  ;default theme earlier but minibuffer not very readable, use lush-theme instead
+          linum-relative                ;relative line numbers on left
+          lush-theme                    ;cool theme good contrasts
+          neotree                       ;like nerdtree, needs specific bindings in evil mode
+          org-bullets                   ;interpret org-mode symbols beautifully
+          powerline                     ;more info on the status line
           solarized-theme
-          swiper
-          use-package
-          yasnippet
-          yasnippet-snippets))
+          swiper                        ;replaces isearch
+          use-package                   ;declarative style package config
+          yasnippet                     ;snippet engine
+          yasnippet-snippets))          ;snippet collection
   (unless package-archive-contents
     (package-refresh-contents))
 
@@ -75,11 +77,9 @@
 ;; install any missing packages
 (my:installPackages)
 
-;; use the declarative package config style
 (eval-when-compile
   (require 'use-package))
 
-;; relative line numbers on left margin
 (use-package linum-relative
   :ensure t
   :config
@@ -91,13 +91,11 @@
 ;;   :config
 ;;   (ac-config-default))
 
-;; org mode specific stuff
 (use-package org-bullets
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;; airline (statusbar)
 (use-package airline-themes
   :ensure t
   :init
@@ -123,7 +121,6 @@
   :config
   (global-set-key (kbd "M-;") 'comment-dwim-2))
 
-;; vim mode and vim-commentary
 (use-package evil-commentary
   :ensure t
   :init
@@ -134,13 +131,11 @@
   :config
   (evil-commentary-mode))
 
-;; flycheck (syntax checker)
 (use-package flycheck
   :ensure t
   :config
   (global-flycheck-mode))
 
-;; yasnippets
 (use-package yasnippet
   :ensure t
   :config
@@ -206,6 +201,9 @@
 (use-package swiper
   :ensure t)
 
+(use-package helm
+  :ensure t)
+
 (use-package neotree
   :ensure t
   :config
@@ -221,9 +219,10 @@
 
 ;; custom keys
 (global-set-key (kbd "C-M-k") (lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+(global-set-key (kbd "C-c M-x") 'helm-M-x)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-(global-set-key (kbd "M-/") 'undo-tree-visualize)
-(global-set-key (kbd "C-M-z") 'switch-to-next-buffer)
+(global-set-key (kbd "M-/") 'undo-tree-visualize) ;graphic showing undo history
+(global-set-key (kbd "C-M-z") 'switch-to-next-buffer) ;easy switch between buffers
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 (global-set-key (kbd "C-c C-s") 'isearch)
 (global-set-key (kbd "C-s") 'swiper)
