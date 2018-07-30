@@ -39,9 +39,9 @@
           company-jedi                  ;python autocomplete via company
           company-lua
           company-shell                 ;shell autocomplete via company
-          company-tern                  ;js autocomplete via company
           evil                          ;vim mode
           evil-commentary               ;tpopes vim commentary
+          evil-surround                 ;surround like vim (tpope)
           flycheck                      ;syntax checker
           gnutls
           helm
@@ -121,15 +121,25 @@
   :config
   (global-set-key (kbd "M-;") 'comment-dwim-2))
 
-(use-package evil-commentary
-  :ensure t
-  :init
+(defun my:start-evil()
   (use-package evil
     :ensure t
     :config
-    (evil-mode 1))
+    (evil-mode 1)))
+  
+(use-package evil-commentary
+  :ensure t
+  :init
+  'my:start-evil
   :config
   (evil-commentary-mode))
+
+(use-package evil-surround
+  :ensure t
+  :init
+  'my:start-evil
+  :config
+  (evil-surround-mode))
 
 (use-package flycheck
   :ensure t
@@ -178,20 +188,15 @@
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
-(use-package company-tern
-  :ensure t
-  :config
-  (add-to-list 'company-backends 'company-tern)
-  (add-hook 'js2-mode-hook (lambda ()
-                             (tern-mode)
-                             (company-mode))))
-
+(defun my:go-mode-hook()
+  (setq gofmt-command "goimports")
+  (setq 'before-save-hook 'gofmt-command)
+  (set (make-local-variable 'company-backends) '(company-go))
+  (add-hook 'go-mode-hook 'company-go))
 (use-package company-go
   :ensure t
   :config
-  (add-hook 'go-mode-hook (lambda ()
-                            (set (make-local-variable 'company-backends) '(company-go))
-                            (company-mode))))
+  (add-hook 'go-mode-hook 'my:go-mode-hook))
 
 (use-package ivy
   :ensure t
@@ -204,16 +209,16 @@
 (use-package helm
   :ensure t)
 
+(defun my:neotree-mode-hook()
+  (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+  (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+  (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+  (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))
+
 (use-package neotree
   :ensure t
   :config
-  (add-hook 'neotree-mode-hook
-            (lambda ()
-              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
-
+  (add-hook 'neotree-mode-hook 'my:neotree-mode-hook))
 
 ;;; install package end
 
