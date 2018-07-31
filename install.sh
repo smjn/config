@@ -96,6 +96,7 @@ if [[ $noop -eq 0 ]]; then
 	ln -sf ${repo}/.bashrc ${prefix}/.bashrc
 	ln -sf ${repo}/.vimrc ${prefix}/.vimrc
 	ln -sf ${repo}/.emacs.d/init.el ${prefix}/.emacs.d/init.el
+	ln -sf ${repo}/.emacs.d/init ${prefix}/.emacs.d/init
 	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
 
 
