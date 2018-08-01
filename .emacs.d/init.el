@@ -4,11 +4,17 @@
 ;;; my init.el
 
 ;;; Code:
-(load-file "~/.emacs.d/init/basic.el")
-(load-file "~/.emacs.d/init/install.el")
-(load-file "~/.emacs.d/init/configure-packages.el")
-(load-file "~/.emacs.d/init/set-keys.el")
-(load-file "~/.emacs.d/init/set-vars.el")
+(defvar my:init-dir
+  (expand-file-name "init" user-emacs-directory))
+(dolist (file (directory-files my:init-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
+(declare-function my:configure-basic "basic" ())
+(declare-function my:installPackages "install" ())
+(declare-function my:configure-packages "configure-packages" ())
+(declare-function my:keys "set-keys" ())
+(declare-function my:vars "set-vars" ())
 
 (defun my:init()
   (my:configure-basic)
@@ -18,7 +24,6 @@
   (my:vars))
 
 (my:init)
-
 
 (provide 'init)
 ;;; init.el ends here
