@@ -79,6 +79,8 @@ echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/termi
 if [[ $noop -eq 0 ]]; then
 	sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential || { echo "could not install deps"; exit 1; }
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    #setup vim-plug
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	installFonts
 	installDownloads
 
