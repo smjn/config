@@ -10,6 +10,7 @@
   (global-set-key (kbd "C-c C-r") 'isearch-backward)
   (global-set-key (kbd "C-s") 'swiper)
   (global-set-key (kbd "C-r") 'swiper)
+  (global-set-key (kbd "C-x p") 'projectile-find-file)
   (global-set-key [f8] 'neotree-toggle))
 
 (provide 'set-keys)

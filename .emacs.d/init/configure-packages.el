@@ -25,11 +25,11 @@
     :config
     (load-theme 'airline-dark t))
 
-  ;; ui theme
-  ;; (use-package jbeans-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   (load-theme 'jbeans t))
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy))
 
   (use-package lush-theme
     :ensure t
@@ -37,7 +37,6 @@
     (load-theme 'lush  t))
 
 
-  ;; for better commenting features in native emacs
   (use-package comment-dwim-2
     :ensure t
     :config
@@ -141,6 +140,16 @@
     :ensure t
     :config
     (add-hook 'neotree-mode-hook 'my:neotree-mode-hook))
+
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+  (use-package rainbow-blocks
+    :ensure t
+    :config
+    (global-rainbow-blocks-mode))
 
   (use-package exec-path-from-shell
     :ensure t
