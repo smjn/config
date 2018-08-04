@@ -35,6 +35,10 @@ function installFonts() {
 	wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
 	tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
 
+    #font awesome
+    wget -L https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip -O /tmp/awesome.zip
+    unzip /tmp/awesome.zip -d ~/.local/share/fonts/
+
 	fc-cache -fv
 }
 
