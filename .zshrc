@@ -115,6 +115,8 @@ alias DB='bash ~/programs/bash/bright.sh 1'
 alias gaan='mpd; ncmpcpp -s search_engine -S visualizer'
 alias rebootnet='sudo systemctl restart NetworkManager'
 alias -s go='vim'
+alias em='emacs -nw'
+alias emrc='emacs -nw ~/.emacs.d/init.el'
 #alias htop='htop -C'
 
 #.dircolors.ansi-dark
@@ -127,4 +129,4 @@ compinit -u
 setopt extended_glob
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
-	fi
+fi
