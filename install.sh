@@ -99,6 +99,7 @@ if [[ $noop -eq 0 ]]; then
 	ln -sf ${repo}/.vimrc ${prefix}/.vimrc
 	ln -sf ${repo}/.emacs.d/init.el ${prefix}/.emacs.d/init.el
 	ln -sf ${repo}/.emacs.d/init ${prefix}/.emacs.d/init
+	ln -sf ${repo}/wall.png ${prefix}/wall.png
 	sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
 
 
