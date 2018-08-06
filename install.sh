@@ -27,51 +27,77 @@ done
 
 function installFonts() {
     #overpass
-    wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
-    7z x /tmp/overpass.zip
-    mv overpass overpass-mono ~/.local/share/fonts/
+    echo "Getting and setting up overpass fonts"
+    if [[ $noop -eq 0 ]]; then
+        wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
+        7z x /tmp/overpass.zip
+        mv overpass overpass-mono ~/.local/share/fonts/
+    fi
 
     #ubuntu fonts
-    wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
-    tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
+    echo "Getting and setting up ubuntu fonts"
+    if [[ $noop -eq 0 ]]; then
+        wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
+        tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
+    fi
 
     #font awesome
-    wget -L https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip -O /tmp/awesome.zip
-    unzip /tmp/awesome.zip -d ~/.local/share/fonts/
+    echo "Getting and setting up fontawesome fonts"
+    if [[ $noop -eq 0 ]]; then
+        wget -L https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip -O /tmp/awesome.zip
+        unzip /tmp/awesome.zip -d ~/.local/share/fonts/
+    fi
 
     #powerline for terminal symbols
-    git clone https://github.com/powerline/fonts /tmp/fonts
-    bash /tmp/fonts/install.sh
+    echo "Getting and setting up powerline fonts"
+    if [[ $noop -eq 0 ]]; then
+        git clone https://github.com/powerline/fonts /tmp/fonts
+        bash /tmp/fonts/install.sh
+    fi
 
-    fc-cache -fv
+    [[ $noop -eq 0 ]] && fc-cache -fv
 }
 
 function installDownloads() {
     #chrome
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    sudo apt-get update && sudo apt install google-chrome-stable
+    echo "Getting and setting up google chrome"
+    if [[ $noop -eq 0 ]]; then
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update && sudo apt install google-chrome-stable
+    fi
 
     #firefox relies on the chrome installations .desktop file
-    wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
-    pushd /tmp
-    tar -xvf firefox.tar.bz2
-    sudo mv firefox /opt/firefox
-    popd
-    cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
-    sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
-    sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+    echo "Getting and setting up firefox quantum"
+    if [[ $noop -eq 0 ]]; then
+        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
+        pushd /tmp
+        tar -xvf firefox.tar.bz2
+        sudo mv firefox /opt/firefox
+        popd
+        cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
+        sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
+        sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+    fi
 
     #vscode
-    wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
-    sudo dpkg -i /tmp/code.deb
-    sudo apt-get -f install
+    echo "Getting and setting up vscode"
+    if [[ $noop -eq 0 ]]; then
+        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
+        wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
+        sudo dpkg -i /tmp/code.deb
+        sudo apt-get -f install
+    fi
 
     #bumblebee status
-    git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
-    sudo apt-get install python-pip
-    sudo pip install psutil netifaces requests power i3ipc
-    sudo pip install dbus
+    echo "Getting and setting up bumblebee-status"
+    if [[ $noop -eq 0 ]]; then
+        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
+        git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
+        sudo apt-get install python-pip
+        sudo pip install psutil netifaces requests power i3ipc
+        sudo pip install dbus
+    fi
 }
 
 function moveOlder() {
@@ -174,5 +200,6 @@ if [[ $noop -eq 0 ]]; then
     moveOlder
     makeDirs
     setupRcs
+    dictionary
 fi
 
