@@ -163,6 +163,7 @@ function setupRcs() {
                 ;;
             .oh-my-zsh)
                 echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
+                echo "${prefix}/.oh-my-zsh/themes/maran2.zsh-theme -> ${repo}/.oh-my-zsh/themes/maran2.zsh-theme"
                 if [[ $noop -eq 0 ]]; then
                     ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
                     ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
@@ -170,6 +171,7 @@ function setupRcs() {
                 ;;
             .config)
                 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
+                echo "${prefix}/.config/i3/config ${repo}/.config/i3/config"
                 if [[ $noop -eq 0 ]]; then
                     ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
                     ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
