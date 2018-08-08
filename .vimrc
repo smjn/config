@@ -137,6 +137,10 @@ let g:rainbow_active = 1
 Plug 'guns/vim-clojure-static'
 "end clojure mode
 
+"begin autoclose/autopair
+Plug 'jiangmiao/auto-pairs'
+"end autoclose/autopair
+
 call plug#end()
 
 """"" some ui stuff
