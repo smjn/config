@@ -147,6 +147,7 @@ call plug#end()
 "so entire background looks better
 " set background=dark
 
+"custom stuff
 "theme name
 colorscheme jellybeans
 hi Visual ctermbg=4 ctermfg=0
