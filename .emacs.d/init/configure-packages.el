@@ -156,7 +156,10 @@
     :if (memq window-system '(mac ns x))
     :config
     (setq exec-path-from-shell-variables '("GOROOT" "GOPATH" "GOBIN" "PATH"))
-    (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize))
+
+  (use-package magit
+    :ensure t))
 
 (provide 'configure-packages)
 ;;; configure-packages.el ends here

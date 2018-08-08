@@ -16,6 +16,7 @@
       ;; ac-js2
       ace-jump-mode
       airline-themes
+      magit                         ;git stuff for emacs like fugitive
       ;; auto-complete
       ;; auto-complete-clang-async
       projectile                   ;better inproject navigation
