@@ -23,7 +23,6 @@
       cider                        ;repl and ide for clojure
       clojure-mode                 ;stuff for writing clojure progs
       rainbow-delimiters           ;same as below
-      rainbow-blocks                  ;to show braces in different colors
       comment-dwim-2                ;better comments in native emacs
       company                       ;better autocomplete
       company-c-headers

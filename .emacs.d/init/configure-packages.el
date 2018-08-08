@@ -146,11 +146,6 @@
     :config
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-  (use-package rainbow-blocks
-    :ensure t
-    :config
-    (global-rainbow-blocks-mode))
-
   (use-package exec-path-from-shell
     :ensure t
     :if (memq window-system '(mac ns x))
