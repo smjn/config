@@ -76,8 +76,11 @@ function installDownloads() {
         sudo mv firefox /opt/firefox
         popd
         cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
-        sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox/' /tmp/firefox-quantum.desktop
+        sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox-esr/' /tmp/firefox-quantum.desktop
         sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+        [[ -e /usr/bin/firefox ]] && sudo mv /usr/bin/firefox{,.bak}
+        [[ -e /usr/bin/firefox-esr ]] && sudo mv /usr/bin/firefox-esr{,.bak}
+        sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox
     fi
 
     #vscode
