@@ -89,10 +89,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias APT='sudo apt-fast update'
+alias APT='sudo apt update'
 alias AR='sudo apt -y autoremove && sudo apt -y clean && sudo apt -y autoclean'
-alias APTU='sudo apt-fast update && sudo apt-fast -y upgrade && sudo apt-fast -y dist-upgrade'
-alias AP='sudo apt-fast'
+alias APTU='sudo apt update && sudo apt -y upgrade && sudo apt -y dist-upgrade'
+alias AP='sudo apt'
 alias AS='apt-cache search'
 alias g++11="g++ -std=c++11"
 alias t2="tmux -2 -u"

@@ -149,6 +149,10 @@ function makeDirs() {
     fi
 }
 
+function setupMiscLinks() {
+    sudo ln -sf /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+}
+
 function setupRcs() {
     for i in $(ls -a)
     do
@@ -201,6 +205,7 @@ if [[ $noop -eq 0 ]]; then
     clonePrograms
     moveOlder
     makeDirs
+    setupMiscLinks
     setupRcs
     dictionary
 fi
