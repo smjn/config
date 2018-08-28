@@ -67,7 +67,6 @@ function installDownloads() {
         sudo apt-get update && sudo apt install google-chrome-stable
     fi
 
-    #firefox relies on the chrome installations .desktop file
     echo "Getting and setting up firefox quantum"
     if [[ $noop -eq 0 ]]; then
         wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
@@ -75,11 +74,27 @@ function installDownloads() {
         tar -xvf firefox.tar.bz2
         sudo mv firefox /opt/firefox
         popd
-        cp /usr/share/applications/google-chrome.desktop /tmp/firefox-quantum.desktop
-        sed -i -e 's/Google.*/Firefox Quantum/' -e 's#/usr/bin/google.*#/opt/firefox/firebox %U#' -e 's/Icon=google.*/Icon=firefox-esr/' /tmp/firefox-quantum.desktop
-        sudo mv /tmp/firefox-quantum.desktop /usr/share/applications/
+        cat <<EOF|sudo tee >/dev/null /usr/share/applications/firefox-quantum.desktop
+[Desktop Entry]
+Version=1.0
+Name=Firefox Quantum
+GenericName=Web Browser
+Comment=Access the Internet
+Exec=/opt/firefox/firefox %U
+Terminal=false
+Icon=firefox
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Exec=/opt/firefox/firefox %U
+EOF
         [[ -e /usr/bin/firefox ]] && sudo mv /usr/bin/firefox{,.bak}
         [[ -e /usr/bin/firefox-esr ]] && sudo mv /usr/bin/firefox-esr{,.bak}
+        [[ -e /usr/local/bin/firefox ]] && sudo mv /usr/local/bin/firefox{,.bak}
         sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox
     fi
 
@@ -99,7 +114,6 @@ function installDownloads() {
         git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
         sudo apt-get install python-pip
         sudo pip install psutil netifaces requests power i3ipc
-        sudo pip install dbus
     fi
 }
 
@@ -116,8 +130,8 @@ function moveOlder() {
 }
 
 function installAptStuff() {
-    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc"
-    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc|| { echo "could not install deps"; exit 1; }
+    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common"
+    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common||{ echo "could not install deps"; exit 1; }
 }
 
 function installZsh() {
@@ -133,6 +147,21 @@ function installVim() {
 function clonePrograms() {
     echo "Cloning programs into ~"
     [[ $noop -eq 0 ]] && git clone https://github.com/smjn/programs ~/programs
+}
+
+function addPPAs() {
+    declare -A ppas
+    ppas[ppa:snwh/ppa]=bionic
+    ppas[ppa:numix/ppa]=bionic
+    ppas[ppa:noobslab/icons]=bionic
+    ppas[ppa:noobslab/themes]=bionic
+
+    for k in "${!ppas[@]}"; do
+        echo "Adding ppa $k ${ppas[$k]}"
+        [[ $noop -eq 0 ]] && . ~/programs/bash/addppa.sh $k ${ppas[$k]}
+    done
+
+    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install paper-icon-theme numix-icon-theme
 }
 
 function dictionary() {
@@ -206,6 +235,7 @@ if [[ $noop -eq 0 ]]; then
     installFonts
     installDownloads
     clonePrograms
+    addPPAs
     moveOlder
     makeDirs
     setupMiscLinks
