@@ -131,3 +131,4 @@ setopt extended_glob
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
     source /etc/profile.d/vte.sh
 fi
+bindkey \^U backward-kill-line
