@@ -193,14 +193,6 @@ function setupRcs() {
     for i in $(ls -a)
     do
         case "$i" in
-            .emacs.d)
-                echo "${prefix}/.emacs.d/init.el -> ${repo}/.emacs.d/init.el"
-                echo "${prefix}/.emacs.d/init -> ${repo}/.emacs.d/init"
-                if [[ $noop -eq 0 ]]; then
-                    ln -sf ${repo}/.emacs.d/init.el ${prefix}/.emacs.d/init.el
-                    ln -sf ${repo}/.emacs.d/init ${prefix}/.emacs.d/init
-                fi
-                ;;
             .oh-my-zsh)
                 echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
                 echo "${prefix}/.oh-my-zsh/themes/maran2.zsh-theme -> ${repo}/.oh-my-zsh/themes/maran2.zsh-theme"
