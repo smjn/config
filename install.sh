@@ -144,6 +144,11 @@ function installVim() {
     [[ $noop -eq 0 ]] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
+function installSpacemacs() {
+    echo "Will clone spaceemacs repo"
+    [[ $noop -eq 0 ]] && git clone https://github.com/syl20bnr/spacemacs ${prefix}/.emacs.d
+}
+
 function clonePrograms() {
     echo "Cloning programs into ~"
     [[ $noop -eq 0 ]] && git clone https://github.com/smjn/programs ~/programs
@@ -174,9 +179,8 @@ function dictionary() {
 }
 
 function makeDirs() {
-    echo "Will make if needed ${prefix}/.emacs.d ${prefix}/.config/{i3,xfce4/terminal}"
+    echo "Will make if needed ${prefix}/.config/{i3,xfce4/terminal}"
     if [[ $noop -eq 0 ]]; then
-        mkdir -p ${prefix}/.emacs.d
         mkdir -p ${prefix}/.config/{i3,xfce4/terminal}
     fi
 }
@@ -232,6 +236,7 @@ if [[ $noop -eq 0 ]]; then
     installAptStuff
     installZsh
     installVim
+    installSpacemacs
     installFonts
     installDownloads
     clonePrograms
