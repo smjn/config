@@ -209,6 +209,10 @@ function setupRcs() {
                     ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
                 fi
                 ;;
+            .spacemacs)
+                echo "${prefix}/.spacemacs -> ${repo}/.spacemacs"
+                [[ $noop -eq 0 ]] && ln -sf ${repo}/.spacemacs ${prefix}/.spacemacs
+                ;;
             vimrc.local)
                 echo "/etc/vim/vimrc.local -> ${repo}/vimrc.local"
                 [[ $noop -eq 0 ]] && sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
