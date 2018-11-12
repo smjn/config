@@ -202,10 +202,12 @@ function setupRcs() {
                 ;;
             .config)
                 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
+                echo "${prefix}/.config/redshift.conf -> ${repo}/.config/redshift.conf"
                 echo "${prefix}/.config/i3/config ${repo}/.config/i3/config"
                 if [[ $noop -eq 0 ]]; then
                     ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
                     ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
+                    ln -sf ${repo}/.config/redshift.conf ${prefix}/.config/redshift.conf
                 fi
                 ;;
             .spacemacs)
