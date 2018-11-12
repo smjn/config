@@ -26,19 +26,19 @@ done
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
 function installFonts() {
+    #ubuntu fonts
+    echo "Getting and setting up ubuntu fonts"
+    if [[ $noop -eq 0 ]]; then
+        wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
+        tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
+    fi
+
     #overpass
     echo "Getting and setting up overpass fonts"
     if [[ $noop -eq 0 ]]; then
         wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
         7z x /tmp/overpass.zip
         mv overpass overpass-mono ~/.local/share/fonts/
-    fi
-
-    #ubuntu fonts
-    echo "Getting and setting up ubuntu fonts"
-    if [[ $noop -eq 0 ]]; then
-        wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
-        tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
     fi
 
     #font awesome
@@ -64,7 +64,7 @@ function installDownloads() {
     if [[ $noop -eq 0 ]]; then
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
         sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-        sudo apt-get update && sudo apt install google-chrome-stable
+        sudo apt -y update && sudo apt -y install google-chrome-stable
     fi
 
     echo "Getting and setting up firefox quantum"
@@ -103,14 +103,14 @@ EOF
     if [[ $noop -eq 0 ]]; then
         wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
         sudo dpkg -i /tmp/code.deb
-        sudo apt-get -f install
+        sudo apt -f install
     fi
 
     #bumblebee status
     echo "Getting and setting up bumblebee-status"
     if [[ $noop -eq 0 ]]; then
         git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
-        sudo apt-get install python-pip
+        sudo apt -y install python-pip
         sudo pip install psutil netifaces requests power i3ipc
     fi
 }
@@ -129,8 +129,8 @@ function moveOlder() {
 
 function installAptStuff() {
     echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal and optional tilix"
-    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get install tilix redshift-gtk
-    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
+    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install tilix redshift-gtk
+    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
 }
 
 function installZsh() {
@@ -165,7 +165,7 @@ function addPPAs() {
         [[ $noop -eq 0 ]] && . ~/programs/bash/addppa.sh $k ${ppas[$k]}
     done
 
-    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get -y install paper-icon-theme numix-icon-theme
+    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install paper-icon-theme numix-icon-theme
 }
 
 function dictionary() {
