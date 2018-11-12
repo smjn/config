@@ -101,7 +101,6 @@ EOF
     #vscode
     echo "Getting and setting up vscode"
     if [[ $noop -eq 0 ]]; then
-        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
         wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
         sudo dpkg -i /tmp/code.deb
         sudo apt-get -f install
@@ -110,7 +109,6 @@ EOF
     #bumblebee status
     echo "Getting and setting up bumblebee-status"
     if [[ $noop -eq 0 ]]; then
-        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
         git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
         sudo apt-get install python-pip
         sudo pip install psutil netifaces requests power i3ipc
@@ -130,8 +128,8 @@ function moveOlder() {
 }
 
 function installAptStuff() {
-    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common"
-    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common||{ echo "could not install deps"; exit 1; }
+    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal"
+    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
 }
 
 function installZsh() {
