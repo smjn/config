@@ -7,6 +7,6 @@ fi
 if sudo apt -y update && sudo apt -y install git; then
     git clone https://github.com/smjn/config $HOME/.dotfiles
     cd $HOME/.dotfiles
-    ./install $HOME
+    ./install.sh $HOME
 fi
 
