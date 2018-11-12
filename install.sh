@@ -128,8 +128,9 @@ function moveOlder() {
 }
 
 function installAptStuff() {
-    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal"
-    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
+    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal and optional tilix"
+    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get install tilix redshift-gtk
+    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
 }
 
 function installZsh() {
@@ -164,7 +165,7 @@ function addPPAs() {
         [[ $noop -eq 0 ]] && . ~/programs/bash/addppa.sh $k ${ppas[$k]}
     done
 
-    [[ $noop -eq 0 ]] && sudo apt-get update && sudo apt-get install paper-icon-theme numix-icon-theme
+    [[ $noop -eq 0 ]] && sudo apt-get -y update && sudo apt-get -y install paper-icon-theme numix-icon-theme
 }
 
 function dictionary() {
