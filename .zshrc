@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export EDITOR=vim
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -122,7 +123,7 @@ alias fixdisp='xrandr --output HDMI-1 --left-of LVDS-1'
 
 #.dircolors.ansi-dark
 #.dircolors.ansi-dark
-eval `dircolors ~/.dircolors`
+# eval `dircolors ~/.dircolors`
 #LS_COLORS=$LS_COLORS:'ow=0;34:di=0;34'; export LS_COLORS
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 autoload -Uz compinit
