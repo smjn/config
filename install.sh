@@ -231,12 +231,12 @@ if [[ $noop -eq 0 ]]; then
     installAptStuff
     installZsh
     installVim
-    installSpacemacs
     installFonts
     installDownloads
     clonePrograms
     addPPAs
     moveOlder
+    installSpacemacs
     makeDirs
     setupMiscLinks
     setupRcs
