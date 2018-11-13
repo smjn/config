@@ -239,9 +239,15 @@ function setupRcs() {
                 echo "/etc/vim/vimrc.local -> ${repo}/vimrc.local"
                 [[ $noop -eq 0 ]] && sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
                 ;;
-            ".zshrc" | ".bashrc" | ".vimrc" | "wall.png" | ".i3status.conf")
+            ".zshrc" | ".bashrc" | ".vimrc" | ".i3status.conf")
                 echo "${prefix}/$i -> ${repo}/$i"
-                [[ $noop -eq 0 ]] && ln -sf ${repo}/$i ${prefix}/$i
+                [[ $noop -eq 0 ]] && ln -sf ${repo}/$i ${prefix}/$i                
+                ;;
+            "wall.png")
+                [[ -e ${prefix}/$i ]] && { echo "wallpaper link exists"; return; }
+                echo "${prefix}/$i -> ${repo}/$i \n ${prefix}/Pictures/$i -> ${repo}/$i"
+                ln -sf ${repo}/$i ${prefix}/$i
+                ln -sf ${repo}/$i ${prefix}/Pictures/$i
                 ;;
             *)
                 echo "Ignoring $i"
