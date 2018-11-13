@@ -25,6 +25,23 @@ done
 
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
+function installGolang() {
+    [[ -e /opt/go ]] && { echo "go already installed"; return 0; }
+    echo "Getting and setting golang from $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz')"
+    if [[ $noop -eq 0]]; then
+        wget $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz') -O /tmp/go.tgz
+        sudo tar -xvf /tmp/go.tgz -C /opt/go
+    fi
+    cat <<EOF |sudo tee >/dev/null /etc/profile.d/setgo.sh
+#!/usr/bin/env bash
+#get set go
+export GOPATH="$prefix/programs/gocode"
+export GOBIN="$prefix/programs/gocode/bin"
+export GOROOT="/opt/go"
+export PATH="$PATH:$GOROOT/bin:$GOBIN"
+EOF
+}
+
 function installFonts() {
     #ubuntu fonts
     echo "Getting and setting up ubuntu fonts"
@@ -128,29 +145,33 @@ function moveOlder() {
 }
 
 function installAptStuff() {
-    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal and optional tilix"
+    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal and optional tilix redshift"
     [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install tilix redshift-gtk
     [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
 }
 
 function installZsh() {
+    [[ -e "$prefix/.oh-my-zsh" ]] && { echo "oh-my-zsh exists"; return; }
     echo "Will clone and install oh-my-zsh"
     [[ $noop -eq 0 ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
 function installVim() {
+    [[ -e '~/.vim/autoload/plug.vim' ]] && { echo "plug.vim exists"; return; }
     echo "Will clone and install vim plug"
-    [[ $noop -eq 0 ]] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    [[ $noop -eq 0 ]] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
 function installSpacemacs() {
+    [[ -e "$prefix/.spacemacs" ]] && { echo "spacemacs exists"; return; }
     echo "Will clone spaceemacs repo"
     [[ $noop -eq 0 ]] && git clone https://github.com/syl20bnr/spacemacs ${prefix}/.emacs.d
 }
 
 function clonePrograms() {
+    [[ -e "$prefix/programs" ]] && { echo "programs exists"; return; }
     echo "Cloning programs into ~"
-    [[ $noop -eq 0 ]] && git clone https://github.com/smjn/programs ~/programs
+    [[ $noop -eq 0 ]] && git clone https://github.com/smjn/programs "$prefix/programs"
 }
 
 function addPPAs() {
@@ -231,6 +252,7 @@ function setupRcs() {
 
 if [[ $noop -eq 0 ]]; then
     installAptStuff
+    installGolang
     installZsh
     installVim
     installFonts
