@@ -28,9 +28,9 @@ done
 function installGolang() {
     [[ -e /opt/go ]] && { echo "go already installed"; return 0; }
     echo "Getting and setting golang from $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz')"
-    if [[ $noop -eq 0]]; then
+    if [[ $noop -eq 0 ]]; then
         wget $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz') -O /tmp/go.tgz
-        sudo tar -xvf /tmp/go.tgz -C /opt/go
+        sudo tar -xvf /tmp/go.tgz -C /opt/
     fi
     cat <<EOF |sudo tee >/dev/null /etc/profile.d/setgo.sh
 #!/usr/bin/env bash
@@ -82,6 +82,7 @@ function installDownloads() {
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
         sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
         sudo apt -y update && sudo apt -y install google-chrome-stable
+        sudo rm -f /etc/apt/sources.list.d/google.list
     fi
 
     echo "Getting and setting up firefox quantum"
