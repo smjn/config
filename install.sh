@@ -80,9 +80,9 @@ function installDownloads() {
     echo "Getting and setting up google chrome"
     if [[ $noop -eq 0 ]]; then
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-temp-ppa.list'
         sudo apt -y update && sudo apt -y install google-chrome-stable
-        sudo rm -f /etc/apt/sources.list.d/google.list
+        sudo rm -f /etc/apt/sources.list.d/google-temp-ppa.list
     fi
 
     echo "Getting and setting up firefox quantum"
@@ -100,7 +100,7 @@ GenericName=Web Browser
 Comment=Access the Internet
 Exec=/opt/firefox/firefox %U
 Terminal=false
-Icon=firefox
+Icon=/opt/firefox/browser/chrome/icons/default/default48.png
 Type=Application
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
