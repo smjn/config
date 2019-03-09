@@ -1,3 +1,4 @@
+so ~/vimrc.local
 if &term =~ '256color'
 	set t_ut=
 endif
@@ -125,7 +126,7 @@ Plug 'lifepillar/vim-solarized8'
 """"" end solarized
 
 "python stuff
-Plug 'python-mode/python-mode'
+" Plug 'python-mode/python-mode'
 "end python stuff
 
 "begin rainbow parens
