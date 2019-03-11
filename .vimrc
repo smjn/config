@@ -76,12 +76,16 @@ let g:airline_powerline_fonts = 1
 
 
 """"" start vim-go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoUpdateBinaries' }
 "vim-go config
 let g:go_fmt_command = "goimports"
 """"" end vim-go
 
-""""" start closetag - to insert end tags in web markup
+""""" start gocode
+Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+""""" end gocode
+
+" start closetag - to insert end tags in web markup
 Plug 'alvan/vim-closetag'
 "closetag config
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.htm'
@@ -139,7 +143,7 @@ Plug 'guns/vim-clojure-static'
 "end clojure mode
 
 "begin autoclose/autopair
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 "end autoclose/autopair
 
 call plug#end()
@@ -165,3 +169,5 @@ nnoremap tj :tabprev<CR>
 
 nnoremap th :tabfirst<CR>
 nnoremap tl :tablast<CR>
+
+nnoremap \s :SyntasticToggleMode<CR>
