@@ -66,7 +66,7 @@ EOF
 }
 
 function installCommon(){
-    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift"
+    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift openssh"
     [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet || { echo "could not install common packages"; exit 1; }
 }
 
@@ -171,6 +171,12 @@ function setupRcs() {
     done
 }
 
+function setupSysdServices() {
+    sudo systemctl enable NetworkManager sshd
+    [[ $1 -eq 0 ]] && sudo systemctl enable lightdm || sudo systemctl enable gdm
+    sudo systemctl disable netctl netctl-auto
+}
+
 if [[ $noop -eq 0 ]]; then
     installCommon
     installI3Based
@@ -185,5 +191,6 @@ if [[ $noop -eq 0 ]]; then
     setupMiscLinks
     setupRcs
     dictionary
+    setupSysdServices $ui
 fi
 
