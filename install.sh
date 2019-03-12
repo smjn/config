@@ -30,6 +30,11 @@ done
 
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
+function installYayStuff() {
+    echo "installing vscode"
+    [[ $noop -eq 0 ]] && yay -Sy code || { echo "error installing vscode"; exit 1; }
+}
+
 function installFonts() {
     echo "Getting and setting up otf-overpass ttf-ubuntu-font-family awesome-terminal-fonts otf-font-awesome ttf-font-awesome powerline-fonts"
     [[ $noop -eq 0 ]] && sudo pacman -Sy otf-overpass ttf-ubuntu-font-family awesome-terminal-fonts {otf,ttf}-font-awesome powerline-fonts || { echo "could not install fonts"; exit 1; }
