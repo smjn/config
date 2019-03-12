@@ -1,8 +1,10 @@
 #! /bin/bash
 noop=0
 prefix=""
+ui=0
 repo=$(pwd)
-[[ $# -eq 0 ]] && { echo "usage ./install.sh [-t|--test] -p|--prefix /prefix/path"; exit 1; }
+usage="usage ./install.sh [-t|--test] -p|--prefix /prefix/path -[u|--both-de]"
+[[ $# -eq 0 ]] && { echo "$usage"; exit 1; }
 
 while [[ $# -gt 0 ]]
 do
@@ -15,8 +17,11 @@ do
             prefix="$2"
             shift
             ;;
+        -u|--both-de)
+            ui=1
+            ;;
         *)
-            echo "usage ./install.sh [-t|--test] -p /prefix/path.."
+            echo "$usage"
             exit 1
             ;;
     esac
@@ -25,112 +30,11 @@ done
 
 [[ $noop -eq 1 ]] && echo "Not performing any operation"
 
-function installGolang() {
-    [[ -e /opt/go ]] && { echo "go already installed"; return 0; }
-    echo "Getting and setting golang from $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz')"
-    if [[ $noop -eq 0 ]]; then
-        wget $(wget -q -O - https://golang.org/dl | grep -i 'download downloadBox'|grep -i 'linux'|egrep -o 'https://.*gz') -O /tmp/go.tgz
-        sudo tar -xvf /tmp/go.tgz -C /opt/
-    fi
-    cat <<EOF |sudo tee >/dev/null /etc/profile.d/setgo.sh
-#!/usr/bin/env bash
-#get set go
-export GOPATH="$prefix/programs/gocode"
-export GOBIN="$prefix/programs/gocode/bin"
-export GOROOT="/opt/go"
-export PATH="$PATH:$GOROOT/bin:$GOBIN"
-EOF
-}
-
 function installFonts() {
-    #ubuntu fonts
-    echo "Getting and setting up ubuntu fonts"
-    if [[ $noop -eq 0 ]]; then
-        wget 'https://www.dropbox.com/s/dbgpjjt13hurczq/fonts.tgz?dl=0' -O /tmp/fonts.tgz
-        tar -xvf /tmp/fonts.tgz -C ${prefix}/.local/share
-    fi
-
-    #overpass
-    echo "Getting and setting up overpass fonts"
-    if [[ $noop -eq 0 ]]; then
-        wget -L 'https://github.com/RedHatBrand/Overpass/releases/download/3.0.2/overpass-desktop-fonts.zip' -O /tmp/overpass.zip
-        7z x /tmp/overpass.zip
-        mv overpass overpass-mono ~/.local/share/fonts/
-    fi
-
-    #font awesome
-    echo "Getting and setting up fontawesome fonts"
-    if [[ $noop -eq 0 ]]; then
-        wget -L https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip -O /tmp/awesome.zip
-        unzip /tmp/awesome.zip -d ~/.local/share/fonts/
-    fi
-
-    #powerline for terminal symbols
-    echo "Getting and setting up powerline fonts"
-    if [[ $noop -eq 0 ]]; then
-        git clone https://github.com/powerline/fonts /tmp/fonts
-        bash /tmp/fonts/install.sh
-    fi
-
+    echo "Getting and setting up otf-overpass ttf-ubuntu-font-family awesome-terminal-fonts otf-font-awesome ttf-font-awesome powerline-fonts"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy otf-overpass ttf-ubuntu-font-family awesome-terminal-fonts {otf,ttf}-font-awesome powerline-fonts || { echo "could not install fonts"; exit 1; }
+    echo "refreshing font cache"
     [[ $noop -eq 0 ]] && fc-cache -fv
-}
-
-function installDownloads() {
-    #chrome
-    echo "Getting and setting up google chrome"
-    if [[ $noop -eq 0 ]]; then
-        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-temp-ppa.list'
-        sudo apt -y update && sudo apt -y install google-chrome-stable
-        sudo rm -f /etc/apt/sources.list.d/google-temp-ppa.list
-    fi
-
-    echo "Getting and setting up firefox quantum"
-    if [[ $noop -eq 0 ]]; then
-        wget -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US' -O /tmp/firefox.tar.bz2
-        pushd /tmp
-        tar -xvf firefox.tar.bz2
-        sudo mv firefox /opt/firefox
-        popd
-        cat <<EOF|sudo tee >/dev/null /usr/share/applications/firefox-quantum.desktop
-[Desktop Entry]
-Version=1.0
-Name=Firefox Quantum
-GenericName=Web Browser
-Comment=Access the Internet
-Exec=/opt/firefox/firefox %U
-Terminal=false
-Icon=/opt/firefox/browser/chrome/icons/default/default48.png
-Type=Application
-Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
-Actions=new-window;new-private-window;
-
-[Desktop Action new-private-window]
-Name=New Incognito Window
-Exec=/opt/firefox/firefox %U
-EOF
-        [[ -e /usr/bin/firefox ]] && sudo mv /usr/bin/firefox{,.bak}
-        [[ -e /usr/bin/firefox-esr ]] && sudo mv /usr/bin/firefox-esr{,.bak}
-        [[ -e /usr/local/bin/firefox ]] && sudo mv /usr/local/bin/firefox{,.bak}
-        sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox
-    fi
-
-    #vscode
-    echo "Getting and setting up vscode"
-    if [[ $noop -eq 0 ]]; then
-        wget -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -O /tmp/code.deb
-        sudo dpkg -i /tmp/code.deb
-        sudo apt -f install
-    fi
-
-    #bumblebee status
-    echo "Getting and setting up bumblebee-status"
-    if [[ $noop -eq 0 ]]; then
-        git clone git://github.com/tobi-wan-kenobi/bumblebee-status ${prefix}/.bumblebee
-        sudo apt -y install python-pip
-        sudo pip install psutil netifaces requests power i3ipc
-    fi
 }
 
 function moveOlder() {
@@ -141,14 +45,41 @@ function moveOlder() {
     $cmd ${prefix}/.zshrc{,.bak}
     $cmd ${prefix}/.bashrc{,.bak}
     $cmd ${prefix}/.vimrc{,.bak}
-    $cmd ${prefix}/.emacs{,.bak}
-    $cmd ${prefix}/.emacs.d{,.bak}
 }
 
-function installAptStuff() {
-    echo "Will install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal and optional tilix redshift"
-    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install tilix redshift-gtk
-    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install git p7zip-full zsh curl axel i3 rofi vim vim-nox emacs libclang1 libclang-dev build-essential clojure sbcl ghc arc-theme lxappearance software-properties-common xfce4-terminal||{ echo "could not install deps"; exit 1; }
+function prepareMirrors(){
+    sudo mv /etc/pacman.d/mirrorlist{,.orig}
+    cat >/tmp/mirrorlist <<-EOF
+Server = http://mirrors.evowise.com/archlinux/\$repo/os/\$arch
+Server = http://mirror.rise.ph/archlinux/\$repo/os/\$arch
+Server = http://mirror-hk.koddos.net/archlinux/\$repo/os/\$arch
+Server = http://mirrors.kernel.org/archlinux/\$repo/os/\$arch
+Server = http://mirror.0x.sg/archlinux/\$repo/os/\$arch
+Server = http://mirror.cse.iitk.ac.in/archlinux/\$repo/os/\$arch
+EOF
+    sudo mv /tmp/mirrorlist /etc/pacman.d/
+}
+
+function installCommon(){
+    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet || { echo "could not install common packages"; exit 1; }
+}
+
+function installI3Based() {
+    echo "Will install i3-gaps i3lock i3status lxappearance"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy i3-gaps i3lock i3status lxappearance || { echo "could not install i3 packages"; exit 1; }
+}
+
+
+function installGnomeshell() {
+    echo "Will install gnome-shell gnome-session gnome-search-tool gnome-backgrounds gnome-control-center gnome-tweak-tool"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy gnome-shell gnome-session gnome-search-tool gnome-backgrounds || { echo "could not install gnome packages"; exit 1; }
+}
+
+function installLoginMgr(){
+    [[ $1 -eq 1 ]] && lm="gdm" || lm="lightdm lightdm-gtk-greeter"
+    echo "installing $lm"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy "$lm" || { echo "unable to install login mgr"; exit 1; }
 }
 
 function installZsh() {
@@ -163,31 +94,10 @@ function installVim() {
     [[ $noop -eq 0 ]] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
-function installSpacemacs() {
-    [[ -e "$prefix/.spacemacs" ]] && { echo "spacemacs exists"; return; }
-    echo "Will clone spaceemacs repo"
-    [[ $noop -eq 0 ]] && git clone https://github.com/syl20bnr/spacemacs ${prefix}/.emacs.d
-}
-
 function clonePrograms() {
     [[ -e "$prefix/programs" ]] && { echo "programs exists"; return; }
     echo "Cloning programs into ~"
     [[ $noop -eq 0 ]] && git clone https://github.com/smjn/programs "$prefix/programs"
-}
-
-function addPPAs() {
-    declare -A ppas
-    ppas[ppa:snwh/ppa]=bionic
-    ppas[ppa:numix/ppa]=bionic
-    ppas[ppa:noobslab/icons]=bionic
-    ppas[ppa:noobslab/themes]=bionic
-
-    for k in "${!ppas[@]}"; do
-        echo "Adding ppa $k ${ppas[$k]}"
-        [[ $noop -eq 0 ]] && . ~/programs/bash/addppa.sh $k ${ppas[$k]}
-    done
-
-    [[ $noop -eq 0 ]] && sudo apt -y update && sudo apt -y install paper-icon-theme numix-icon-theme
 }
 
 function dictionary() {
@@ -207,7 +117,8 @@ function makeDirs() {
 }
 
 function setupMiscLinks() {
-    sudo ln -sf /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+    echo "setting up misc links"
+    # sudo ln -sf /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
 }
 
 function setupRcs() {
@@ -217,9 +128,11 @@ function setupRcs() {
             .oh-my-zsh)
                 echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
                 echo "${prefix}/.oh-my-zsh/themes/maran2.zsh-theme -> ${repo}/.oh-my-zsh/themes/maran2.zsh-theme"
+                echo "${prefix}/.oh-my-zsh/themes/robbyrussell2.zsh-theme -> ${repo}/.oh-my-zsh/themes/robbyrussell2.zsh-theme"
                 if [[ $noop -eq 0 ]]; then
                     ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
                     ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
+                    ln -sf ${repo}/.oh-my-zsh/themes/robbyrussell2.zsh-theme ${prefix}/.oh-my-zsh/themes/robbyrussell2.zsh-theme
                 fi
                 ;;
             .config)
@@ -232,13 +145,9 @@ function setupRcs() {
                     ln -sf ${repo}/.config/redshift.conf ${prefix}/.config/redshift.conf
                 fi
                 ;;
-            .spacemacs)
-                echo "${prefix}/.spacemacs -> ${repo}/.spacemacs"
-                [[ $noop -eq 0 ]] && ln -sf ${repo}/.spacemacs ${prefix}/.spacemacs
-                ;;
             vimrc.local)
-                echo "/etc/vim/vimrc.local -> ${repo}/vimrc.local"
-                [[ $noop -eq 0 ]] && sudo ln -sf ${repo}/vimrc.local /etc/vim/vimrc.local
+                echo "${prefix}/vimrc.local -> ${repo}/vimrc.local"
+                [[ $noop -eq 0 ]] && ln -sf ${repo}/vimrc.local ${prefix}/vimrc.local
                 ;;
             ".zshrc" | ".bashrc" | ".vimrc" | ".i3status.conf" | ".dircolors")
                 echo "${prefix}/$i -> ${repo}/$i"
@@ -258,16 +167,15 @@ function setupRcs() {
 }
 
 if [[ $noop -eq 0 ]]; then
-    installAptStuff
-    installGolang
+    installCommon
+    installI3Based
+    [[ $ui -eq 1 ]] && installGnomeshell
+    installLoginMgr $ui
     installZsh
     installVim
     installFonts
-    installDownloads
     clonePrograms
-    addPPAs
     moveOlder
-    installSpacemacs
     makeDirs
     setupMiscLinks
     setupRcs

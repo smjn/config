@@ -1,6 +1,5 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-export EDITOR=vim
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -10,7 +9,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ "$TERM" = "linux" ]; then
 	ZSH_THEME="maran2"
 else
 	#export TERM="xterm-color"
-	ZSH_THEME="sushant"
+	ZSH_THEME="robbyrussell2"
 fi
 #good themes agnoster
 
@@ -56,11 +55,10 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git debian common-aliases sublime zsh-syntax-highlighting)
+plugins=(git archlinux zsh-syntax-highlighting)
 
 # User configuration
-. $HOME/.profile
-export PATH=$GOROOT/bin:$HOME/bin:/usr/local/bin:$PATH
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -90,46 +88,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias APT='sudo apt update'
-alias AR='sudo apt -y autoremove && sudo apt -y clean && sudo apt -y autoclean'
-alias APTU='sudo apt update && sudo apt -y upgrade && sudo apt -y dist-upgrade'
-alias AP='sudo apt'
-alias AS='apt-cache search'
-alias g++11="g++ -std=c++11"
-alias t2="tmux -2 -u"
-alias vimx="vim '+set t_ut='"
-alias zsrc='source ~/.zshrc'
-alias axe='axel -n10 -a'
-alias PUB='git add . && echo -n "message? " && read msg && gcmsg $msg && ggpush'
-alias POW='please poweroff'
-alias REB='please reboot'
-alias vimrc='vim ~/.vimrc'
-alias bashrc='vim ~/.bashrc'
-alias mean='sdcv'
-alias fixNumix="sudo cp -v /usr/share/themes/Numix\ Daily/gtk-2.0/{gtkrc.bak,gtkrc}"
-alias cdA='cd ~/.config/awesome/'
-alias awerc='vim ~/.config/awesome/rc.lua'
-alias cdI='cd ~/.config/i3/'
-alias i3rc='vim ~/.config/i3/config'
-alias IB='bash ~/programs/bash/bright.sh'
-alias DB='bash ~/programs/bash/bright.sh 1'
-alias gaan='mpd; ncmpcpp -s search_engine -S visualizer'
-alias rebootnet='sudo systemctl restart NetworkManager'
-alias -s go='vim'
-alias em='emacs -nw'
-alias emrc='emacs -nw ~/.emacs.d/init.el'
-alias fixdisp='xrandr --output HDMI-1 --left-of LVDS-1'
-#alias htop='htop -C'
+export EDITOR=vim
+export GOROOT=/usr/lib/go
+export GOPATH="/home/sushant/dev/gocode"
+export GOBIN=$GOPATH/bin
 
-#.dircolors.ansi-dark
-#.dircolors.ansi-dark
+source ~/alias.zshrc
+
+# look and feel
 eval `dircolors ~/.dircolors`
-# LS_COLORS=$LS_COLORS:'ow=0;34:di=0;34'; export LS_COLORS
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-autoload -Uz compinit
-compinit -u
-setopt extended_glob
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
+zstyle ':completion:*' rehash true
 bindkey \^U backward-kill-line
