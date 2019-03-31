@@ -131,14 +131,13 @@ function setupRcs() {
     do
         case "$i" in
             .oh-my-zsh)
-                echo "${prefix}/.oh-my-zsh/themes/sushant.zsh-theme -> ${repo}/.oh-my-zsh/themes/sushant.zsh-theme"
-                echo "${prefix}/.oh-my-zsh/themes/maran2.zsh-theme -> ${repo}/.oh-my-zsh/themes/maran2.zsh-theme"
-                echo "${prefix}/.oh-my-zsh/themes/robbyrussell2.zsh-theme -> ${repo}/.oh-my-zsh/themes/robbyrussell2.zsh-theme"
-                if [[ $noop -eq 0 ]]; then
-                    ln -sf ${repo}/.oh-my-zsh/themes/sushant.zsh-theme ${prefix}/.oh-my-zsh/themes/sushant.zsh-theme
-                    ln -sf ${repo}/.oh-my-zsh/themes/maran2.zsh-theme ${prefix}/.oh-my-zsh/themes/maran2.zsh-theme
-                    ln -sf ${repo}/.oh-my-zsh/themes/robbyrussell2.zsh-theme ${prefix}/.oh-my-zsh/themes/robbyrussell2.zsh-theme
-                fi
+                for theme in `ls "$i"`
+                do
+                    echo "${prefix}/.oh-my-zsh/themes/$theme -> ${repo}/.oh-my-zsh/themes/$theme"
+                    if [[ $noop -eq 0 ]]; then
+                        ln -sf "${repo}/.oh-my-zsh/themes/$theme" "${prefix}/.oh-my-zsh/themes/$theme"
+                    fi
+                done
                 ;;
             .config)
                 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
