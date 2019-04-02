@@ -1,0 +1,349 @@
+# Dell-Inspiron-7567-Arch-Install---UEFI
+#Install Arch Linux with encrypted FS and UEFI
+
+# Download the ISO 
+
+$ wget -c http://br.mirror.archlinux-br.org/iso/2018.08.01/archlinux-2018.08.01-x86_64.iso && wget -c http://br.mirror.archlinux-br.org/iso/2018.08.01/sha1sums.txt && head -1 sha1sums.txt | sha1sum -c -
+
+# Build a bootable USB
+
+- # dd bs=4M if=archlinux-2018.08.01-x86_64.iso of=/dev/sdX status=progress oflag=sync
+
+# Boot from USB
+
+- Secure Boot must be disabled (BIOS).
+
+# Connect to Internet or local network
+
+- # ip link set enp2s0 up   # enp2s0 must be the ETH 
+- # systemctl start dhcpcd.service
+- # ping google.com
+- # ip address show enp2s0 | grep inet (You`ll get an IP from the output)
+
+# Set a root password 
+
+- # passwd
+
+-- Remote --
+
+# Connect to SSH from a second Machinne
+
+- $ ssh root@192.168.254.14 # IP from the ip address show output
+
+# Erase the Disk 
+
+- Run lsblk to find thr primary disk (replace /dev/sda where needed)
+
+ - # shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda
+ 
+# Partition the Disk
+
+ - # cfdisk /dev/sda
+    - Partition 1 = 100M - EFI
+    - Partition 2 = 250M - Linux
+    - Partition 3 = 100% - Linux 
+    
+# Create file systems
+
+/dev/sda1
+
+- # mkfs.vfat -F32 /dev/sda1
+
+/dev/sda2
+
+- # mkfs.ext4 /dev/sda2
+
+# Encrypt the system partition
+
+- # cryptsetup --verbose --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 3000 -y --use-random luksFormat /dev/sda3
+
+# Unlock the partition (archlinux will be the device mapper name)
+
+- # cryptsetup open --type luks /dev/sda3 archlinux
+
+# Create the device mapper
+
+- # pvcreate /dev/mapper/archlinux
+- # vgcreate vg0 /dev/mapper/archlinux
+- # lvcreate --size 8G vg0 --name swap
+- # lvcreate -l +100%FREE vg0 --name root 
+
+# Create the swap and root FS
+
+- # mkfs.ext4 /dev/mapper/vg0-root
+- # mkswap /dev/mapper/vg0-swap
+
+# Mount them
+
+- # mount /dev/mapper/vg0-root /mnt 
+- # swapon /dev/mapper/vg0-swap 
+- # mkdir /mnt/boot
+- # mount /dev/sda2 /mnt/boot
+- # mkdir /mnt/boot/efi
+- # mount /dev/sda1 /mnt/boot/efi
+
+# Install the system and some more stuffs
+
+- # pacstrap /mnt base base-devel vim git efibootmgr grub-efi-x86_64 wpa_supplicant dialog
+
+# Generate the fstab
+
+- # genfstab -U -p /mnt >> /mnt/etc/fstab
+
+# chroot to the new system
+
+- # arch-chroot /mnt
+
+# Set en_US locale
+
+- # sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+- # echo LANG=en_US.UTF-8 > /etc/locale.conf
+- # export LANG=en_US.UTF-8
+
+# Generate the locale
+
+- # locale-gen
+
+# Set the timezone and clock
+
+- # ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime #If file exists, do a mv /etc/localtime /etc/localtime.old and rerun
+
+# Set the HW clock to UTC
+
+- # hwclock --systohc --utc
+
+# Set the Hostname
+
+- # echo Dell7K15 > /etc/hostname
+
+# Set the root pass
+
+- # passwd
+
+# Add a system user
+
+- # useradd -m -g users -G wheel,games,power,optical,storage,scanner,lp,audio,video -s /bin/bash d7kuser
+
+# Set the system user password
+
+- # passwd d7kuser
+
+# Add "encrypt lvm2 resume" to mkinitcpio.conf
+
+- # vim /etc/mkinitcpio.conf
+- Add encrypt lvm2 resume before filesystems to HOOKS
+
+# Re-generate our initrams image
+
+- # mkinitcpio -p linux
+
+# Setup Grub
+
+- # grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
+- Edit the line GRUB_CMDLINE_LINUX to GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:cryptpart resume=/dev/mapper/vg0-swap rw" in /etc/default/grub 
+-Uncomment GRUB_ENABLE_CRYPTODISK=y
+
+# Generate the grub.cfg
+
+- grub-mkconfig -o /boot/grub/grub.cfg
+
+# Allow the system user to use sudo
+
+- # EDITOR=nano visudo
+- uncomment %wheel line
+
+# Install NetworkManager
+
+- # pacman -S networkmanager network-manager-applet wireless_tools wpa_actiond
+- # systemctl enable NetworkManager
+
+# Exit the system
+
+- # exit
+
+# Unmount and reboot (remove the installation media)
+
+- # umount -R /mnt
+- # swapoff -a
+- # reboot
+
+-- Local --
+
+# System Update
+
+- $ sudo pacman -Syu
+
+# Install SSH
+
+- $ sudo pacman -S openssh
+- $ sudo systemctl enable sshd
+- $ sudo systemctl start sshd
+
+-- Remote --
+
+# Connect to SSH from a second Machinne
+
+- $ ssh root@192.168.254.14 # IP from the ip address show output
+
+# Install Bash Completion
+
+- $ sudo pacman -S bash-completion
+
+# Create default dirs
+
+- $ sudo pacman -S xdg-users-dirs
+- $ xdg-users-dirs
+
+# Install Net-Tools
+
+- $ sudo pacman -S net-tools
+
+# Install TRIM
+
+- $ sudo pacman -S util-linux
+- $ sudo systemctl enable fstrim.service
+
+# NTP
+
+- $ sudo timedatectl set-ntp true
+
+# YAOURT
+
+- $ sudo pacman -S --needed base-devel wget yajl
+- $ cd /tmp
+- $ git clone https://aur.archlinux.org/package-query.git
+- $ cd package-query/
+- $ makepkg -si && cd /tmp/
+- $ git clone https://aur.archlinux.org/yaourt.git
+- $ cd yaourt/
+- $ makepkg -si
+- $ yaourt -Sy
+
+# Multilib
+
+- $ sudo nano /etc/pacman.conf
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+# Install intel-ucode
+
+- $ sudo pacman -S intel-ucode
+- $ sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Install fwupd para BIOS updates
+
+- $ sudo pacman -S fwupd 
+
+# Install Xorg
+
+- $ sudo pacman -S xorg-server xorg-apps xf86-input-mouse xf86-input-keyboard xterm xf86-input-synaptics xorg-xinit xorg-twm xterm xorg-xclock mesa
+
+# Install Cinammon
+
+- $ sudo pacman -S cinnamon nemo-fileroller cinnamon-translations
+
+# Install GDM
+
+- $ sudo pacman -S gdm
+- $ systemctl enable gdm
+- $ systemctl start gdm
+
+# Install Nvidia Driver
+
+- $ sudo pacman -S nvidia nvidia-utils nvidia-settings 
+
+# Install audio, video and file stuffs
+
+- $ sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol alsa-firmware alsa-utils a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
+
+# Install Bluetooth
+
+- $ sudo pacman -S bluez blueman bluez-utils
+- $ sudo modprobe btusb
+- $ sudo systemctl enable bluetooth
+- $ sudo systemctl start bluetooth
+
+# Disable System Beep
+
+- # echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+
+# Install Bumbleblee 
+
+- $ yaourt -S bumblebee mesa xf86-video-intel lib32-virtualgl lib32-nvidia-utils
+- $ sudo systemctl enable bumbleblee
+- $ sudo systemctl start bumblebee
+- $ optirun glxspheres64
+
+# Configure the HDMI port to a second monitor
+
+- $ sudo echo "Section "Device"
+    Identifier "intelgpu0"
+    Driver "intel"
+    Option "VirtualHeads" "2"
+EndSection" > /usr/share/X11/xorg.conf.d/20-intel.conf
+
+- $ sudo mv /etc/bumblebee/xorg.conf.nvidia /etc/bumblebee/xorg.conf.nvidia.bkp
+
+- $ sudo echo "Section "ServerLayout"
+    Identifier  "Layout0"
+    Option      "AutoAddDevices" "true"
+    Option      "AutoAddGPU" "false"
+EndSection
+
+Section "Device"
+    Identifier  "DiscreteNvidia"
+    Driver      "nvidia"
+    VendorName  "NVIDIA Corporation"
+    Option "ProbeAllGpus" "false"
+    Option "NoLogo" "true"
+    Option "AllowEmptyInitialConfiguration"
+EndSection
+
+Section "Screen"
+    Identifier "Screen0"
+    Device "DiscreteNVidia"
+EndSection" > /etc/bumblebee/xorg.conf.nvidia
+
+# Manage your displays typing Display from Cinnamon Menu 
+
+# Install some more stuffs
+
+- $ sudo pacman -S firefox unzip unrar p7zip mlocate sshfs chromium vlc pidgin deluge smplayer audacious qmmp gimp xfburn thunderbird ttf-dejavu gedit gnome-system-monitor gnome-terminal libreoffice sysstat ibus
+- $ yaourt -S sublime-text-dev --noconfirm
+- $ yaourt -S skypeforlinux-stable-bin --noconfirm
+- $ yaourt -S spotify --noconfirm
+- $ yaourt -S mailspring --noconfirm
+- $ yaourt -S remmina-git --noconfirm
+- $ yaourt -S variety-git --noconfirm
+- $ yaourt -S pamac-aur -- noconfirm
+
+# Install network tools
+
+- $ sudo pacman -S net-tools dnsutils nmap 
+- $ yaourt -S ipscan
+
+# Install warsaw
+
+- $ yaourt -S warsaw-bin
+- $ systemctl enable warsaw.service 
+- $ systemctl start warsaw.service 
+
+# Install Wine
+
+- $ yaourt -Sy wine-staging winetricks 
+- $ yaourt -S lib32-giflib lib32-libldap lib32-gnutls lib32-mpg123 lib32-openal lib32-v4l-utils lib32-libpulse lib32-alsa-plugins  lib32-alsa-lib  lib32-libxcomposite  lib32-libxinerama  lib32-opencl-icd-loader  lib32-libxslt  lib32-libva  lib32-gtk3  lib32-gst-plugins-base-libs  lib32-vulkan-icd-loader  lib32-sdl2  cups  samba dosbox
+
+# Install Steam
+
+- $ yaourt -Sy steam steam-native-runtime steam-fonts ttf-liberation
+- $ sudo pacman -Syy nvidia nvidia-settings nvidia-utils lib32-nvidia-utils lib32-opencl-nvidia # To solve glxChooseVisual Failed
+
+# Configure ~/.bashrc to remove dupe
+
+- $ echo vim ~/.bashrc and paste at the bottom
+
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
