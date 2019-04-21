@@ -4,7 +4,7 @@ alias vimrc='vim ~/.vimrc'
 
 alias UPA='sudo pacman -Syyu && yay -Syyu && sudo update-grub'
 alias AR='sudo pacman -Scc'
-alias PI='sudo pacman -Sy'
+alias IN='sudo pacman -Sy'
 alias YI='yay -Sy'
 alias PAS='pacman -Ss'
 alias YAS='yay -Ss'
