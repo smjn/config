@@ -34,6 +34,8 @@ ScrollingLines=10000
 DropdownWidth=95
 DropdownHeight=65
 BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
-BackgroundDarkness=0.950000
+BackgroundDarkness=0.000000
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
+MiscShowRelaunchDialog=TRUE
+MiscNewTabAdjacent=FALSE
 

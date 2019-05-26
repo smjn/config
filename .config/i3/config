@@ -201,6 +201,8 @@ bar {
 }
 
 new_window pixel 1
+gaps inner 10
+gaps outer 2
 
 #class			border  backgr. text    indicator
 client.focused			$bg				$bg				$fg				$bar-bg #859900
@@ -215,7 +217,7 @@ exec gnome-setting-daemon
 exec sudo /usr/sbin/rfkill block wifi
 exec redshift
 exec_always feh --bg-scale ~/wall.png
-exec_always "compton -bCD"
+exec_always "compton -bCG"
 exec_always "xset -b"
 exec_always numlockx
 exec synclient touchpadOff=1
