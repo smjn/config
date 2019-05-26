@@ -67,12 +67,14 @@ EOF
 
 function installCommon(){
     echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift openssh"
-    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet || { echo "could not install common packages"; exit 1; }
+    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet || { echo "could not install common packages"; exit 1; }
+    [[ $noop -eq 0 ]] && yay -Sy google-chrome || { echo "could not install common packages"; exit 1; }
 }
 
 function installI3Based() {
-    echo "Will install i3-gaps i3lock i3status lxappearance"
+    echo "Will install i3-gaps i3lock i3status lxappearance bumblebee-status"
     [[ $noop -eq 0 ]] && sudo pacman -Sy i3-gaps i3lock i3status lxappearance || { echo "could not install i3 packages"; exit 1; }
+    [[ $noop -eq 0 ]] && yay -Sy bumblebee-status || { echo "could not install i3 packages"; exit 1; }
 }
 
 
