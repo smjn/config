@@ -44,7 +44,7 @@ bindsym --release button2 kill
 
 # start dmenu (a program launcher)
 
-bindsym $mod+d exec rofi -show run -fake-transparency -bw 0 -eh 2 -lines 4 -font "Hack 18" -width 100 -padding 340 -opacity 65 -terminal $terminal
+bindsym $mod+d exec rofi -show run -fake-transparency -bw 0 -eh 2 -lines 4 -font "Hack 18" -width 50 -padding 100 -opacity 65 -terminal $terminal
 #bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -197,7 +197,7 @@ bar {
 # i3bar position
     font pango:Inconsolata for Powerline Medium 12
     position bottom 
-    status_command ~/.bumblebee/bumblebee-status -t gruvbox-powerline -m date time nic cpu memory battery redshift -p interval=7 date.format="%a, %d/%m/%Y"
+    status_command bumblebee-status -t gruvbox-powerline -m date time nic cpu memory redshift -p interval=7 date.format="%a, %d/%m/%Y"
 }
 
 new_window pixel 1
@@ -215,7 +215,7 @@ exec gnome-setting-daemon
 exec sudo /usr/sbin/rfkill block wifi
 exec redshift
 exec_always feh --bg-scale ~/wall.png
-exec_always "compton -f"
+exec_always "compton -bCD"
 exec_always "xset -b"
 exec_always numlockx
 exec synclient touchpadOff=1
