@@ -66,8 +66,8 @@ EOF
 }
 
 function installCommon(){
-    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift openssh"
-    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet || { echo "could not install common packages"; exit 1; }
+    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift openssh termite"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet termite || { echo "could not install common packages"; exit 1; }
     [[ $noop -eq 0 ]] && yay -Sy google-chrome || { echo "could not install common packages"; exit 1; }
 }
 
@@ -119,7 +119,7 @@ function dictionary() {
 function makeDirs() {
     echo "Will make if needed ${prefix}/.config/{i3,xfce4/terminal}"
     if [[ $noop -eq 0 ]]; then
-        mkdir -p ${prefix}/.config/{i3,xfce4/terminal}
+        mkdir -p ${prefix}/.config/{i3,xfce4/terminal,termite}
     fi
 }
 
@@ -144,11 +144,13 @@ function setupRcs() {
             .config)
                 echo "${prefix}/.config/xfce4/terminal/terminalrc -> ${repo}/.config/xfce4/terminal/terminalrc"
                 echo "${prefix}/.config/redshift.conf -> ${repo}/.config/redshift.conf"
-                echo "${prefix}/.config/i3/config ${repo}/.config/i3/config"
+                echo "${prefix}/.config/i3/config -> ${repo}/.config/i3/config"
+                echo "${prefix}/.config/termite/config -> ${repo}/.config/termite/config"
                 if [[ $noop -eq 0 ]]; then
                     ln -sf ${repo}/.config/xfce4/terminal/terminalrc ${prefix}/.config/xfce4/terminal/terminalrc
                     ln -sf ${repo}/.config/i3/config ${prefix}/.config/i3/config
                     ln -sf ${repo}/.config/redshift.conf ${prefix}/.config/redshift.conf
+                    ln -sf ${repo}/.config/termite/config ${prefix}/.config/termite/config
                 fi
                 ;;
             vimrc.local)
