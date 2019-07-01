@@ -66,8 +66,8 @@ EOF
 }
 
 function installCommon(){
-    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server yay geany networkmanager network-manager-applet redshift openssh termite"
-    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal firefox chrome-gnome-shell xorg-server yay network-manager network-manager-applet termite || { echo "could not install common packages"; exit 1; }
+    echo "Will install git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal chromium firefox chrome-gnome-shell xorg-server networkmanager network-manager-applet redshift openssh termite"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy git zsh curl wget axel lua vim arc-gtk-theme xfce4-terminal firefox chrome-gnome-shell xorg-server networkmanager network-manager-applet termite || { echo "could not install common packages"; exit 1; }
     [[ $noop -eq 0 ]] && yay -Sy google-chrome || { echo "could not install common packages"; exit 1; }
 }
 
@@ -79,8 +79,8 @@ function installI3Based() {
 
 
 function installGnomeshell() {
-    echo "Will install gnome-shell gnome-session gnome-search-tool gnome-backgrounds gnome-control-center gnome-tweak-tool"
-    [[ $noop -eq 0 ]] && sudo pacman -Sy gnome-shell gnome-session gnome-search-tool gnome-backgrounds || { echo "could not install gnome packages"; exit 1; }
+    echo "Will install gnome-shell gnome-session gnome-search-tool gnome-backgrounds gnome-control-center gnome-tweaks"
+    [[ $noop -eq 0 ]] && sudo pacman -Sy gnome-shell gnome-session gnome-search-tool gnome-backgrounds gnome-control-center gnome-tweaks || { echo "could not install gnome packages"; exit 1; }
 }
 
 function installLoginMgr(){
