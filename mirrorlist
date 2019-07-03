@@ -277,9 +277,9 @@
 ### Hong Kong
 ### Australia
 #
-Server = https://mirrors.kurnode.com/archlinux/$repo/os/$arch
-Server = https://mirror2.totbb.net/archlinux/$repo/os/$arch
-Server = https://ftp.kaist.ac.kr/ArchLinux/$repo/os/$arch
-Server = https://mirror.0x.sg/archlinux/$repo/os/$arch
-Server = https://mirror.venturasystems.tech/archlinux/$repo/os/$arch
 Server = https://mirrors.evowise.com/archlinux/$repo/os/$arch
+Server = https://mirrors.kurnode.com/archlinux/$repo/os/$arch
+Server = https://mirror.0x.sg/archlinux/$repo/os/$arch
+Server = https://ftp.kaist.ac.kr/ArchLinux/$repo/os/$arch
+Server = https://mirror2.totbb.net/archlinux/$repo/os/$arch
+Server = https://mirror.venturasystems.tech/archlinux/$repo/os/$arch
