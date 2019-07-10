@@ -31,8 +31,9 @@ font pango:SFNS Display 11
 floating_modifier $mod
 
 #set $terminal rxvt
-set $terminal xfce4-terminal --hide-menubar --hide-toolbar --hide-scrollbar
-set $terminal2 tilix
+set $terminal termite
+# set $terminal xfce4-terminal --hide-menubar --hide-toolbar --hide-scrollbar
+# set $terminal2 tilix
 # start a terminal
 bindsym $mod+Return exec $terminal #i3-sensible-terminal
 bindsym $mod+t exec $terminal2 #i3-sensible-terminal
@@ -45,7 +46,7 @@ bindsym --release button2 kill
 # start dmenu (a program launcher)
 
 bindsym $mod+d exec rofi -show run -fake-transparency -bw 0 -eh 2 -lines 4 -font "Hack 18" -width 50 -padding 100 -opacity 65 -terminal $terminal
-#bindsym $mod+d exec dmenu_run
+# bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -197,7 +198,7 @@ bar {
 # i3bar position
     font pango:Inconsolata for Powerline Medium 12
     position bottom 
-    status_command bumblebee-status -t gruvbox-powerline -m date time nic cpu memory redshift -p interval=7 date.format="%a, %d/%m/%Y"
+    status_command bumblebee-status -t gruvbox-powerline -m datetime nic cpu redshift -p interval=7 date.format="%a, %d/%m/%Y"
 }
 
 new_window pixel 1

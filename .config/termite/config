@@ -1,5 +1,6 @@
 [options]
 font=Hack 13
+cursor_blink=off
 [colors]
 background=rgba(0,0,0,0)
 foreground=#d3d3d7
