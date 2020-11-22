@@ -41,7 +41,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['jshint']
-let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
+" let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
 let g:syntastic_quiet_messages = {"level":"warnings"}
 let g:tern_show_argument_hints='on_hold'
 let g:tern_map_keys=1
@@ -77,13 +77,13 @@ let g:airline_powerline_fonts = 1
 
 
 """"" start vim-go
-Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoUpdateBinaries' }
 "vim-go config
-let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "goimports"
 """"" end vim-go
 
 """"" start gocode
-Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 """"" end gocode
 
 " start closetag - to insert end tags in web markup
