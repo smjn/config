@@ -15,9 +15,17 @@
 (when (file-exists-p custom-file)
    (load-file custom-file))
 
-(set-face-attribute 'default  nil :font "Hack" :height 130)
+(set-face-attribute 'default  nil :font "Hack" :height 105)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
+(dolist (mode '(org-mode-hook
+		eshell-mode-hook
+		shell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+(global-set-key (kbd "C-c l") 'display-line-numbers-mode)
 
 ;; init package sources
 (require 'package)
@@ -37,32 +45,62 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+
 (use-package swiper)
 
-(use-package counsel)
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history)))
 
 (use-package ivy
   :diminish
-  :bind(("C-s" . swiper)
-	:map ivy-minibuffer-map
-	("TAB" . ivy-alt-done))
+  :after (swiper)
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done))
   :config
   (ivy-mode 1))
+
 
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 14)))
 
+
 (use-package doom-themes)
-(load-theme 'doom-material 1)
+(load-theme 'doom-dracula 1)
 
-(use-package linum-relative
-  :ensure t
-  :init
-  (setq linum-relative-backend 'display-line-numbers-mode)
-  (setq linum-relative-current-symbol "")
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
   :config
-  (linum-relative-global-mode t))
+  (setq which-key-dle-timeout 0.3))
 
-(global-set-key (kbd "C-c l") 'linum-relative-global-mode)
+
+(use-package ivy-rich
+  :after (ivy)
+  :init
+  (ivy-rich-mode 1))
+
+
+(use-package helpful
+  :ensure t
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+  
