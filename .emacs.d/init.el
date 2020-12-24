@@ -4,14 +4,12 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 10)              ; little bit of padding around the work area
-
 (menu-bar-mode -1)
+(setq vc-follow-symlinks t)
 
 (setq visible-bell t)
 
 (set-face-attribute 'default  nil :font "Hack" :height 130)
-
-(load-theme 'doom-material 1)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -51,6 +49,7 @@
   :custom ((doom-modeline-height 14)))
 
 (use-package doom-themes)
+(load-theme 'doom-material 1)
 
 (use-package linum-relative
   :ensure t
