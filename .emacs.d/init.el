@@ -5,9 +5,13 @@
 (tooltip-mode -1)
 (set-fringe-mode 10)              ; little bit of padding around the work area
 (menu-bar-mode -1)
-(setq vc-follow-symlinks t)
 
 (setq visible-bell t)
+
+(setq custom-file (concat user-emacs-directory "/custom.el"))
+
+(when (file-exists-p custom-file)
+   (load-file custom-file))
 
 (set-face-attribute 'default  nil :font "Hack" :height 130)
 
