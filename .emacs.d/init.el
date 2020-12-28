@@ -19,8 +19,9 @@
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+
 (dolist (mode '(org-mode-hook
 		eshell-mode-hook
 		shell-mode-hook))
@@ -30,14 +31,15 @@
 ;; init package sources
 (require 'package)
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://orgmode.org/elpa")))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/" ) t)
+(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 
+;; init package sources
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
@@ -73,7 +75,7 @@
 
 
 (use-package doom-themes)
-(load-theme 'doom-dracula 1)
+(load-theme 'wombat 1)
 
 
 (use-package rainbow-delimiters
@@ -104,3 +106,18 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
   
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode 1))
+
+
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
