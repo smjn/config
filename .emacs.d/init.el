@@ -15,7 +15,7 @@
 (when (file-exists-p custom-file)
    (load-file custom-file))
 
-(set-face-attribute 'default  nil :font "Hack" :height 105)
+(set-face-attribute 'default  nil :font "Fira Code" :height 105)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -27,6 +27,14 @@
 		shell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 (global-set-key (kbd "C-c l") 'display-line-numbers-mode)
+
+;; UTF-8 support
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; init package sources
 (require 'package)
@@ -75,7 +83,7 @@
 
 
 (use-package doom-themes)
-(load-theme 'wombat 1)
+(load-theme 'doom-dracula 1)
 
 
 (use-package rainbow-delimiters
@@ -121,3 +129,27 @@
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
+
+
+(use-package projectile
+  :diminish
+  :config (projectile-mode)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/dev")
+    (setq projectile-project-search-path '("~/dev")))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
+
+
+(use-package magit
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-vi))
+
+
+(use-package evil-magit
+  :after magit)
