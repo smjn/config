@@ -83,7 +83,7 @@
 
 
 (use-package doom-themes)
-(load-theme 'doom-dracula 1)
+(load-theme 'doom-gruvbox 1)
 
 
 (use-package rainbow-delimiters
