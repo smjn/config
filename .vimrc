@@ -54,11 +54,19 @@ map <C-n> :NERDTreeToggle<CR>
 """"" end nerdtree
 
 """"" start neocomplete - for autocomplete from history/docs/fs
-Plug 'Shougo/neocomplete'
-"neocomplete config
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+"Plug 'Shougo/neocomplete'
+""neocomplete config
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 if !exists('g:neocomplete#force_omni_input_patterns')
 	let g:neocomplete#force_omni_input_patterns = {}
@@ -126,6 +134,10 @@ Plug 'kien/ctrlp.vim'
 Plug 'flazz/vim-colorschemes'
 """"" end colorschemes
 
+"""" gruvbox colorscheme
+Plug 'morhetz/gruvbox'
+"""" end gruvbox
+
 """"" start solorized theme - better solorized 
 Plug 'lifepillar/vim-solarized8'
 """"" end solarized
@@ -155,7 +167,7 @@ call plug#end()
 
 "custom stuff
 "theme name
-colorscheme jellybeans
+colorscheme gruvbox
 hi Visual ctermbg=4 ctermfg=0
 "show some characters instead of white space
 set listchars=tab:>~,nbsp:_,trail:.,extends:<,precedes:-

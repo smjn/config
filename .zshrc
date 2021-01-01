@@ -6,10 +6,10 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ "$TERM" = "linux" ]; then
-	ZSH_THEME="maran2"
+	ZSH_THEME="maran"
 else
 	#export TERM="xterm-color"
-	ZSH_THEME="robbyrussell2"
+	ZSH_THEME="robbyrussell"
 fi
 #good themes agnoster
 
@@ -56,6 +56,10 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git archlinux)
+eval "$(dircolors -p | \
+    sed 's/ 4[0-9];/ 01;/; s/;4[0-9];/;01;/g; s/;4[0-9] /;01 /' | \
+    dircolors /dev/stdin)"
+
 
 # User configuration
 
@@ -90,12 +94,14 @@ source $ZSH/oh-my-zsh.sh
 #
 export EDITOR=vim
 export GOROOT=/usr/lib/go
-export GOPATH="/home/sushant/dev/gocode"
+export GOPATH="/home/smjn/dev/gocode"
 export GOBIN=$GOPATH/bin
 
 source ~/alias.zshrc
 
 # look and feel
-eval `dircolors ~/.dircolors`
+# eval `dircolors ~/.dircolors`
 zstyle ':completion:*' rehash true
 bindkey \^U backward-kill-line
+
+export PATH=~/.emacs.d/bin:$PATH

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 alias zsrc='source ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
@@ -12,3 +13,6 @@ alias YAS='yay -Ss'
 
 alias POW='sudo poweroff'
 alias REB='sudo reboot'
+
+alias axe='axel -n10 -k -a'
+alias em='emacs -nw'
