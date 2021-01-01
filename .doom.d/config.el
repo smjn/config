@@ -54,7 +54,7 @@
 ;; they are implemented.
 
 
-
+;; UI
 (setq doom-font (font-spec :family "Fira Code" :size 17)
       doom-variable-pitch-font (font-spec :family "Fira Sans Book" :size 17))
 (add-to-list 'default-frame-alist '(height . 40))
@@ -66,3 +66,33 @@
 (set-keyboard-coding-system 'utf-8)
 
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+;; Projects
+(setq projectile-discover-projects-in-directory "~/dev")
+(map! :leader
+      :desc "Neotree toggle"
+      :"o n" #'neotree-toggle)
+
+(add-hook 'neotree-mode-hook
+          (lambda()
+            (define-key neotree-mode-map (kbd "-") #'neotree-enter-horizontal-split)
+            (define-key neotree-mode-map (kbd "H") #'neotree-hidden-file-toggle)
+            (define-key neotree-mode-map (kbd "|") #'neotree-enter-vertical-split)))
+
+;; dired hidden files
+(defun smjn/dired-dotfiles-toggle ()
+  "Show/hide dot-files"
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p)
+        (progn
+          (set (make-local-variable 'dired-dotfiles-show-p) nil)
+          (message "h")
+          (dired-mark-files-regexp "^\\\.")
+          (dired-do-kill-lines))
+      (progn (revert-buffer)
+             (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+
+(add-hook 'dired-mode-hook
+          (lambda()
+            (define-key dired-mode-map (kbd "C-c h") #'smjn/dired-dotfiles-toggle)))
