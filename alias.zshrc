@@ -16,3 +16,5 @@ alias REB='sudo reboot'
 
 alias axe='axel -n10 -k -a'
 alias em='emacs -nw'
+
+which nvim >&/dev/null && alias vim=nvim
