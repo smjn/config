@@ -11,6 +11,10 @@
 (when (file-exists-p custom-file)
   (load-file custom-file))
 
+
+;; custom vars
+(setq vc-follow-symlinks t)
+
 ;; custom package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
@@ -97,6 +101,12 @@
   (load-theme 'doom-gruvbox t))
 
 
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode))
+
+
 (use-package general
   :ensure t
   :config
@@ -106,13 +116,16 @@
     :prefix "SPC")
 
   (smjn/leader-keys
-   "t" '(:ignore t :which-key "toggles")
-   "tt" '(counsel-load-theme :which-key "choose theme")
-   "tl" 'display-line-numbers-mode
-   "tc" '((lambda () (interactive)
-	   (if company-idle-delay
-	       (setq company-idle-delay nil)
-	     (setq company-idle-delay 0.1))) :which-key "toggle company mode")
-   "ts" '(evil-ex-nohighlight :which-key "toggle hlsearch")
-   "b" '(:ignore b :which-key "buffers")
-   "bl" '(counsel-switch-buffer :which-key "choose buffer")))
+    "t" '(:ignore t :which-key "toggles")
+    "tt" '(counsel-load-theme :which-key "choose theme")
+    "tl" 'display-line-numbers-mode
+    "tc" '((lambda () (interactive)
+	     (cond ((numberp company-idle-delay)
+		    (setq company-idle-delay nil)
+		    (message "company mode off"))
+		   (t
+		    (setq company-idle-delay 0.1)
+		    (message "company mode on")))) :which-key "toggle company mode")
+    "ts" '(evil-ex-nohighlight :which-key "toggle hlsearch")
+    "b" '(:ignore b :which-key "buffers")
+    "bl" '(counsel-switch-buffer :which-key "choose buffer")))
