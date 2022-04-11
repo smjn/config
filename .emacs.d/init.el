@@ -3,6 +3,18 @@
 (tool-bar-mode -1)
 (set-frame-font "JetBrains Mono 16" nil t)
 
+(set-language-environment 'utf-8)                                                           
+(setq locale-coding-system 'utf-8)
+
+;; set the default encoding system                                                          
+(prefer-coding-system 'utf-8)                                                               
+(setq default-file-name-coding-system 'utf-8)                                               
+(set-default-coding-systems 'utf-8)                                                         
+(set-terminal-coding-system 'utf-8)                                                         
+(set-keyboard-coding-system 'utf-8)  
+
+(setq backup-directory-alist '((".*" . "~/.waste")))
+
 (require 'package)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -134,3 +146,8 @@
 (use-package gruvbox-theme
   :config
   (load-theme 'gruvbox t))
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
