@@ -41,6 +41,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_ignore_files = ['.py']
 " let g:syntastic_go_checkers = ['go', 'govet', 'errcheck']
 let g:syntastic_quiet_messages = {"level":"warnings"}
 let g:tern_show_argument_hints='on_hold'
@@ -85,9 +86,9 @@ let g:airline_powerline_fonts = 1
 
 
 """"" start vim-go
-" Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.25', 'do': ':GoUpdateBinaries' }
 "vim-go config
-" let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goimports"
 """"" end vim-go
 
 """"" start gocode
@@ -104,6 +105,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.htm'
 Plug 'maksimr/vim-jsbeautify'
 "vim-jsbeautify config
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" autocmd FileType python noremap <buffer>  <c-s-f> :!black %<cr>
 " for json
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
 " for jsx
@@ -115,7 +117,7 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 """"" end vm-jsbeautify
 
 """"" start snippets
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 """"" end snippets
 
 """"" start comments plugin
@@ -143,7 +145,7 @@ Plug 'lifepillar/vim-solarized8'
 """"" end solarized
 
 "python stuff
-" Plug 'python-mode/python-mode'
+Plug 'python-mode/python-mode'
 "end python stuff
 
 "begin rainbow parens
@@ -159,7 +161,13 @@ Plug 'guns/vim-clojure-static'
 " Plug 'jiangmiao/auto-pairs'
 "end autoclose/autopair
 
+Plug 'w0rp/ale'
+
 call plug#end()
+
+let g:ale_linters = {'python': ['flake8', 'pydocstyle']}
+let g:ale_fixers = {'*': [], 'python': ['black', 'isort']}
+let g:ale_fix_on_save = 1
 
 """"" some ui stuff
 "so entire background looks better
