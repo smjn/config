@@ -1,30 +1,25 @@
-;; general UI
 (menu-bar-mode -1)
-(setq inhibit-startup-message t)
-(setq inhibit-splash-screen t)
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode 1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(set-frame-font "JetBrains Mono 16" nil t)
 
-;; custom files and paths
-(setq locale-coding-system 'utf-8)
-(setq custom-file (concat user-emacs-directory "/custom.el"))
-(when (file-exists-p custom-file)
-  (load-file custom-file))
-
-
-;; custom vars
-(setq vc-follow-symlinks t)
-
-;; custom package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-;; package installation boilerplate
+(setq custom-file (concat user-emacs-directory  "/custom.el"))
+(when (file-exists-p custom-file)
+  (load-file custom-file))
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
+
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+(global-set-key (kbd "C-c l") 'display-line-numbers-mode)
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
@@ -32,11 +27,21 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; custom packages
-(use-package swiper)
+(use-package company
+  :init
+  (global-company-mode t)
+  :ensure t
+  :hook
+  (lsp-mode . company-mode)
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.1))
+
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package swiper)
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -50,19 +55,15 @@
   :after (swiper)
   :bind (("C-s" . swiper)
 	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+	 ("TAB" . ivy-alt-done))
   :config
   (ivy-mode 1))
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-dle-timeout 0.3))
 
 
 (use-package ivy-rich
@@ -70,62 +71,66 @@
   :init
   (ivy-rich-mode 1))
 
-
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-timeout 0.3))
-
-
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
+
   :config
-  (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state))
+  (evil-mode 1))
 
-
-(use-package company
+(use-package evil-commentary
+  :after (evil)
   :ensure t
+  :config (evil-commentary-mode 1))
+
+(use-package helpful
+  :ensure t
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+
+(use-package neotree
+  :ensure t
+  :bind
+  (("C-c p" . neotree-toggle)))
+
+(use-package python-mode
+  :ensure t
+  :hook
+  (python-mode . lsp-deferred)
+  (python-mode . yas-minor-mode)
+  (before-save . lsp-format-buffer)
+  (before-save . lsp-organize-imports)
+  :custom
+  (python-shell-interpreter "python3"))
+
+
+(use-package go-mode
+  :ensure t
+  :config
+  (setq-default tab-width 4)
+  (setq-default indent-tabs-mode nil)
+  :hook
+  (go-mode . lsp-deferred)
+  (go-mode . yas-minor-mode)
+  (before-save . lsp-format-buffer)
+  (before-save . lsp-organize-imports))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
   :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay nil))
-
-
-(use-package doom-themes
-  :ensure t
-  :init
-  (load-theme 'doom-gruvbox t))
-
-
-(use-package doom-modeline
-  :ensure t
+  (setq lsp-keymap-prefix "C-c l")
   :config
-  (doom-modeline-mode))
+  (lsp-enable-which-key-integration t))
 
-
-(use-package general
-  :ensure t
+(use-package gruvbox-theme
   :config
-  (general-evil-setup t)
-  (general-create-definer smjn/leader-keys
-    :keymaps '(normal)
-    :prefix "SPC")
-
-  (smjn/leader-keys
-    "t" '(:ignore t :which-key "toggles")
-    "tt" '(counsel-load-theme :which-key "choose theme")
-    "tl" 'display-line-numbers-mode
-    "tc" '((lambda () (interactive)
-	     (cond ((numberp company-idle-delay)
-		    (setq company-idle-delay nil)
-		    (message "company mode off"))
-		   (t
-		    (setq company-idle-delay 0.1)
-		    (message "company mode on")))) :which-key "toggle company mode")
-    "ts" '(evil-ex-nohighlight :which-key "toggle hlsearch")
-    "b" '(:ignore b :which-key "buffers")
-    "bl" '(counsel-switch-buffer :which-key "choose buffer")))
+  (load-theme 'gruvbox t))
