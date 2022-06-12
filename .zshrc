@@ -94,7 +94,7 @@ source $ZSH/oh-my-zsh.sh
 #
 export EDITOR=vim
 export GOROOT=/usr/lib/go
-export GOPATH="/home/smjn/dev/gocode"
+export GOPATH="$HOME/dev/gocode"
 export GOBIN=$GOPATH/bin
 
 source ~/alias.zshrc
