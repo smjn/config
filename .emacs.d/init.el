@@ -49,7 +49,6 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.1))
 
-
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -115,10 +114,10 @@
   (("C-c p" . neotree-toggle)))
 
 (use-package python-mode
-  :ensure t
+  :ensure nil
   :hook
   (python-mode . lsp-deferred)
-  (python-mode . yas-minor-mode)
+  ;; (python-mode . yas-minor-mode)
   (before-save . lsp-format-buffer)
   (before-save . lsp-organize-imports)
   :custom
@@ -151,3 +150,24 @@
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (python-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+;; if you are ivy user
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)

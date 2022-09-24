@@ -30,5 +30,6 @@ alias REB='sudo reboot'
 
 alias axe='axel -n10 -k -a'
 alias em='emacs -nw'
+alias emrc='emacs -nw ~/.emacs.d/init.el'
 
 which nvim >&/dev/null && alias vim=nvim
