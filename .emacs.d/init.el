@@ -3,15 +3,15 @@
 (tool-bar-mode -1)
 (set-frame-font "JetBrains Mono 16" nil t)
 
-(set-language-environment 'utf-8)                                                           
+(set-language-environment 'utf-8)
 (setq locale-coding-system 'utf-8)
 
-;; set the default encoding system                                                          
-(prefer-coding-system 'utf-8)                                                               
-(setq default-file-name-coding-system 'utf-8)                                               
-(set-default-coding-systems 'utf-8)                                                         
-(set-terminal-coding-system 'utf-8)                                                         
-(set-keyboard-coding-system 'utf-8)  
+;; set the default encoding system
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
 
 (setq backup-directory-alist '((".*" . "~/.waste")))
 
@@ -171,3 +171,13 @@
 ;; if you are ivy user
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config (evil-collection-init))
+
+(use-package format-all
+  :ensure t
+  :bind (
+	 ("C-c f" . format-all-buffer)))
