@@ -12,9 +12,9 @@ function __checkos {
 }
 # OS specific
 if __checkos 'debian|ubuntu|pop'; then
-    alias UPA='sudo apt -y update && sudo apt -y upgrade'
-    alias PC='sudo apt autoclean && sudo apt autoremove'
-    alias IN='sudo apt install'
+    alias UPA='sudo apt-get -y update && sudo apt-get -y upgrade'
+    alias PC='sudo apt-get autoclean && sudo apt-get autoremove'
+    alias IN='sudo apt-get install'
     alias PC='apt-cache search'
 elif __checkos 'arch|manjaro'; then
     alias UPA='sudo pacman -Syyu && yay -Syyu && sudo update-grub'
