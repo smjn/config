@@ -163,12 +163,12 @@ Plug 'guns/vim-clojure-static'
 "end autoclose/autopair
 
 Plug 'w0rp/ale'
-
-call plug#end()
-
 let g:ale_linters = {'python': ['flake8', 'pydocstyle']}
 let g:ale_fixers = {'*': [], 'python': ['black', 'isort']}
 let g:ale_fix_on_save = 1
+
+call plug#end()
+
 
 """"" some ui stuff
 "so entire background looks better
