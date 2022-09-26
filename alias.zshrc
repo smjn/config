@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 alias zsrc='source ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
-alias vimrc='vim ~/.vimrc'
+if [[ -e ~/.config/nvim/init.lua ]]; then
+    alias vimrc='vim ~/.config/nvim/init.lua'
+else
+    alias vimrc='vim ~/.vimrc'
+fi
+
 alias i3rc='vim ~/.config/i3/config'
 
 function __checkos {

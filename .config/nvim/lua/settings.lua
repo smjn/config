@@ -23,7 +23,7 @@ vo.listchars = 'eol:⏎,tab:▸·,trail:×,nbsp:⎵'
 
 -- color
 vo.termguicolors = true
-vo.background = "dark"
+-- vo.background = "dark"
 
 -- line number
 vo.relativenumber = true

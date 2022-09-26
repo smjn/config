@@ -27,4 +27,5 @@ return require('packer').startup(function()
             vim.g.airline_theme = 'minimalist'
         end
     }
+    use 'morhetz/gruvbox'
 end)
