@@ -104,7 +104,7 @@ source ~/alias.zshrc
 zstyle ':completion:*' rehash true
 bindkey \^U backward-kill-line
 
-export PATH=~/.emacs.d/bin:/home/smjn/.local/bin:$PATH
+export PATH=~/.emacs.d/bin:/home/smjn/.local/bin:~/.local/npm-global/bin:$PATH
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"

@@ -18,8 +18,8 @@ vo.splitbelow = true
 vo.splitright = true
 
 -- file
-vo.fileencoding = 'utf-8'
-vo.listchars = 'eol:⏎,tab:▸·,trail:×,nbsp:⎵'
+vo.fileencoding = "utf-8"
+vo.listchars = "eol:⏎,tab:▸·,trail:×,nbsp:⎵"
 
 -- color
 vo.termguicolors = true
