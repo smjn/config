@@ -19,7 +19,12 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
-    use 'luochen1990/rainbow'
+    use {
+        'luochen1990/rainbow',
+        config = function()
+            vim.g.rainbow_active = 1
+        end
+    }
     use 'vim-airline/vim-airline'
     use {
         'vim-airline/vim-airline-themes',
