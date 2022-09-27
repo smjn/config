@@ -103,8 +103,9 @@ source ~/alias.zshrc
 # eval `dircolors ~/.dircolors`
 zstyle ':completion:*' rehash true
 bindkey \^U backward-kill-line
+export LOCAL_INS="$HOME/.local"
 
-export PATH=~/.emacs.d/bin:/home/smjn/.local/bin:~/.local/npm-global/bin:$PATH
+export PATH=$LOCAL_INS/bin:$LOCAL_INS/npm-global/bin:$LOCAL_INS/lua-global/bin:$PATH
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
