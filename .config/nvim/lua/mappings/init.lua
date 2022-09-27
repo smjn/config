@@ -17,4 +17,5 @@ local function smjn_toggleTransparentBg()
     end
 end
 
-vim.keymap.set("n", "<leader>h", smjn_toggleTransparentBg, opts)
+vim.keymap.set("n", "<leader>t", smjn_toggleTransparentBg, opts)
+vim.keymap.set("n", "<leader>h", ":set nohlsearch!<CR>", opts)
