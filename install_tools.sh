@@ -16,7 +16,7 @@ function __checkos {
 function install_deb {
 	sudo apt-get -y update
 	# deps
-	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake
+	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs
 	# pkg mgrs
 	sudo apt-get -y install luarocks npm
 	# languages
@@ -39,7 +39,7 @@ function install_lua_tools {
 
 function install_py_tools {
 	source ~/.zshrc
-	pipx install pyright pynvim neovim cpplint
+	pipx install pyright pynvim neovim cpplint black isort
 	pipx install 'python-lsp-server[all]'
 }
 
@@ -75,6 +75,12 @@ function get_fonts {
 	fc-cache -fv
 }
 
+function setup_emacs {
+	rm -rf $HOME/.emacs.d $HOME/.emacsrc
+	mkdir -p $HOME/.emacs.d
+	ln -sf $DOTS/.emacs.d/init.el $HOME/.emacs.d/init.el
+}
+
 if __checkos 'debian|ubuntu|pop'; then
 	install_deb
 	get_fonts
@@ -85,4 +91,5 @@ if __checkos 'debian|ubuntu|pop'; then
 	install_nvim
 	install_py_tools
 	install_lua_tools
+	setup_emacs
 fi
