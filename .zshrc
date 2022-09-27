@@ -97,7 +97,7 @@ export GOROOT=/usr/lib/go
 export GOPATH="$HOME/dev/gocode"
 export GOBIN=$GOPATH/bin
 
-source ~/alias.zshrc
+source ~/alias.sh
 
 # look and feel
 # eval `dircolors ~/.dircolors`
