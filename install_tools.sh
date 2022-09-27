@@ -78,11 +78,11 @@ function get_fonts {
 if __checkos 'debian|ubuntu|pop'; then
 	install_deb
 	get_fonts
-	mkdirs
 	get_config
+	mkdirs
 	setup_zsh
 	install_pyenv
-	install_py_tools
 	install_nvim
+	install_py_tools
 	install_lua_tools
 fi
