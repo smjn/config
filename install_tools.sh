@@ -16,7 +16,7 @@ function __checkos {
 function install_deb {
 	sudo apt-get -y update
 	# deps
-	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs
+	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs pipx
 	# pkg mgrs
 	sudo apt-get -y install luarocks npm
 	# languages
@@ -31,14 +31,18 @@ function mkdirs {
 	mkdir -p $NPM_GLOBAL $LUA_GLOBAL
 }
 
-function install_lua_tools {
+function so_zshrc {
 	source ~/.zshrc
+}
+
+function install_lua_tools {
+	so_zshrc
 	luarocks install --tree $LUA_GLOBAL --server=https://luarocks.org/dev luaformatter
 	luarocks install --tree $LUA_GLOBAL luacheck
 }
 
 function install_py_tools {
-	source ~/.zshrc
+	so_zshrc
 	pipx install pyright pynvim neovim cpplint black isort
 	pipx install 'python-lsp-server[all]'
 }
