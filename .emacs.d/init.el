@@ -67,7 +67,8 @@
 	 :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)))
 
 (use-package 
-  ivy
+  ivy 
+
   :diminish 
   :after (swiper) 
   :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done)) 
@@ -116,29 +117,24 @@
 
 (use-package 
   python-mode 
-  :ensure nil 
-  :hook (python-mode . lsp-deferred)
-  ;; (python-mode . yas-minor-mode)
-  (before-save . lsp-format-buffer) 
-  (before-save . lsp-organize-imports) 
+  :ensure t 
+  :config (add-hook 'python-mode-hook 'lsp-deferred) 
+  (add-hook 'before-save-hook (lambda () 
+				(when (eq major-mode 'python-mode) 
+				  (lsp-format-buffer) 
+				  (lsp-organize-imports)))) 
   :custom (python-shell-interpreter "python3"))
 
 
 (use-package 
   go-mode 
   :ensure t 
-  :config (setq-default tab-width 4) 
-  (setq-default indent-tabs-mode nil) 
-  :hook (go-mode . lsp-deferred) 
-  (go-mode . yas-minor-mode) 
-  (before-save . lsp-format-buffer) 
-  (before-save . lsp-organize-imports))
-
-(use-package 
-  lsp-mode 
-  :commands (lsp lsp-deferred) 
-  :init (setq lsp-keymap-prefix "C-c l") 
-  :config (lsp-enable-which-key-integration t))
+  :config (add-hook 'go-mode-hook 'lsp-deferred) 
+  (add-hook 'go-mode-hook 'yas-minor-mode) 
+  (add-hook 'before-save-hook (lambda () 
+				(when (eq major-mode 'go-mode) 
+				  (lsp-format-buffer) 
+				  (lsp-organize-imports)))))
 
 (use-package 
   gruvbox-theme 
@@ -192,4 +188,6 @@
 (use-package 
   elisp-format 
   :ensure t 
-  :hook (before-save . elisp-format-buffer))
+  :config (add-hook 'before-save-hook (lambda () 
+					(when (eq major-mode 'emacs-lisp-mode) 
+					  (elisp-format-buffer)))))
