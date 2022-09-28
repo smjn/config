@@ -67,8 +67,7 @@
 	 :map minibuffer-local-map ("C-r" . 'counsel-minibuffer-history)))
 
 (use-package 
-  ivy 
-
+  ivy
   :diminish 
   :after (swiper) 
   :bind (("C-s" . swiper) :map ivy-minibuffer-map ("TAB" . ivy-alt-done)) 
@@ -113,6 +112,7 @@
 (use-package 
   neotree 
   :ensure t 
+  :config (setq neo-show-hidden-files t) 
   :bind (("C-c p" . neotree-toggle)))
 
 (use-package 
@@ -155,7 +155,7 @@
   lsp-mode 
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l") 
+  (setq lsp-keymap-prefix "C-c s") 
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp)
          ;; if you want which-key integration
