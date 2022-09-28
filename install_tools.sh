@@ -16,7 +16,7 @@ function __checkos {
 function install_deb {
 	sudo apt-get -y update
 	# deps
-	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs pipx
+	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs pipx silversearcher-ag ripgrep
 	# pkg mgrs
 	sudo apt-get -y install luarocks npm
 	# languages
