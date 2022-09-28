@@ -26,10 +26,15 @@ return require("packer").startup(function()
         "luochen1990/rainbow",
         config = function() vim.g.rainbow_active = 1 end
     }
-    use "vim-airline/vim-airline"
-    use {
-        "vim-airline/vim-airline-themes",
-        config = function() vim.g.airline_theme = "minimalist" end
-    }
     use "morhetz/gruvbox"
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = {{'nvim-lua/plenary.nvim'}}
+    }
 end)

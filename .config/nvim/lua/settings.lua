@@ -1,4 +1,5 @@
 local vo = vim.opt
+local vg = vim.g
 
 -- search
 vo.hlsearch = true
@@ -32,3 +33,10 @@ vo.cursorline = true
 
 -- misc
 vo.hidden = true
+
+-- netrw
+vg.netrw_banner = 0
+vg.netrw_liststyle = 3
+vg.netrw_browse_split = 4
+vg.netrw_altv = 1
+vg.netrw_winsize = 25

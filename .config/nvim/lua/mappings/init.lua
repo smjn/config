@@ -17,5 +17,14 @@ local function smjn_toggleTransparentBg()
     end
 end
 
-vim.keymap.set("n", "<leader>t", smjn_toggleTransparentBg, opts)
+vim.keymap.set("n", "<leader>o", smjn_toggleTransparentBg, opts)
 vim.keymap.set("n", "<leader>h", ":set nohlsearch!<CR>", opts)
+
+-- Telescope
+vim.keymap.set("n", "<leader>ff",
+               "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({previewer=false}))<CR>",
+               opts)
+vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+vim.keymap.set("n", "<leader>fc", ":Telescope colorscheme<CR>", opts)
