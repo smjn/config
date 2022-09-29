@@ -4,8 +4,8 @@
 #*#
 *.swp
 \#*
-.emacs.d/*
-! .emacs.d/init.el
-.config/nvim/*
-! .config/nvim/init.lua
-! .config/nvim/lua/
+.emacs.d
+!.emacs.d/init.el
+.config/nvim
+!.config/nvim/init.lua
+!.config/nvim/lua
