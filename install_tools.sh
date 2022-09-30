@@ -49,7 +49,7 @@ function install_py_tools {
 
 function install_npm_tools {
 	so_zshrc
-	npm -g install prettier eslint
+	npm -g install prettier jshint
 }
 
 function install_pyenv {

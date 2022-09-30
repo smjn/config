@@ -5,8 +5,8 @@ vim.g.ale_linters = {
     lua = {'luacheck'},
     c = {'cpplint'},
     cpp = {'cpplint'},
-    javascript = {'eslint'},
-    js = {'eslint'}
+    javascript = {'jshint'},
+    js = {'jshint'}
 }
 
 vim.g.ale_fixers = {
@@ -22,4 +22,4 @@ vim.g.ale_fixers = {
 }
 
 vim.g.ale_fix_on_save = 1
-
+vim.g.ale_linters_explicit = 1
