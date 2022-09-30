@@ -9,7 +9,7 @@ return require("packer").startup(function()
             "c", "cpp"
         },
         cmd = "ALEEnable",
-        config = "vim.cmd[[ALEEnable]]"
+        config = "vim.cmd([[ALEEnable]])"
     }
     use "tpope/vim-commentary"
     use "tpope/vim-surround"

@@ -47,6 +47,11 @@ function install_py_tools {
 	pipx install 'python-lsp-server[all]'
 }
 
+function install_npm_tools {
+	so_zshrc
+	npm -g install prettier eslint
+}
+
 function install_pyenv {
 	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 }
@@ -95,5 +100,6 @@ if __checkos 'debian|ubuntu|pop'; then
 	install_nvim
 	install_py_tools
 	install_lua_tools
+	install_npm_tools
 	setup_emacs
 fi

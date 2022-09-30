@@ -4,7 +4,9 @@ vim.g.ale_linters = {
     zsh = {'shellcheck'},
     lua = {'luacheck'},
     c = {'cpplint'},
-    cpp = {'cpplint'}
+    cpp = {'cpplint'},
+    javascript = {'eslint'},
+    js = {'eslint'}
 }
 
 vim.g.ale_fixers = {
@@ -14,7 +16,10 @@ vim.g.ale_fixers = {
     zsh = {'shfmt'},
     lua = {'lua-format'},
     c = {'clang-format'},
-    cpp = {'clang-format'}
+    cpp = {'clang-format'},
+    javascript = {'prettier'},
+    js = {'prettier'}
 }
 
 vim.g.ale_fix_on_save = 1
+
