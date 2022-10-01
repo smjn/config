@@ -28,3 +28,6 @@ vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
 vim.keymap.set("n", "<leader>fc", ":Telescope colorscheme<CR>", opts)
+
+-- ale
+vim.keymap.set("n", "<leader>a", ":ALEToggle<CR>", opts)
