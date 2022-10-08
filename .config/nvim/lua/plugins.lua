@@ -1,6 +1,8 @@
 return require("packer").startup(function()
     use "wbthomason/packer.nvim"
     use "EdenEast/nightfox.nvim"
+    use "morhetz/gruvbox"
+    use "sainnhe/gruvbox-material"
     use "preservim/nerdtree"
     use {
         "w0rp/ale",
@@ -26,7 +28,6 @@ return require("packer").startup(function()
         "luochen1990/rainbow",
         config = function() vim.g.rainbow_active = 1 end
     }
-    use "morhetz/gruvbox"
     use {
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
