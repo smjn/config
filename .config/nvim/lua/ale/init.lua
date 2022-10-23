@@ -18,7 +18,8 @@ vim.g.ale_fixers = {
     c = {'clang-format'},
     cpp = {'clang-format'},
     javascript = {'prettier'},
-    js = {'prettier'}
+    js = {'prettier'},
+    haskell = {'stylish-haskell'}
 }
 
 vim.g.ale_fix_on_save = 1

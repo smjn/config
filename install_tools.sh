@@ -16,7 +16,7 @@ function __checkos {
 function install_deb {
 	sudo apt-get -y update
 	# deps
-	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs pipx silversearcher-ag ripgrep
+	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git cmake zsh zsh-common guake emacs pipx silversearcher-ag ripgrep alacritty
 	# pkg mgrs
 	sudo apt-get -y install luarocks npm
 	# languages
@@ -77,6 +77,10 @@ function setup_zsh {
 	ln -sf $DOTS/alias.zshrc $HOME/alias.zshrc
 }
 
+function install_alacritty {
+    git clone https://github.com/eendroroy/alacritty-theme.git ~/.alacritty-colorscheme
+}
+
 function get_fonts {
 	wget -qL https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip -o /tmp/jb.zip
 	mkdir -p $LOCAL/share/fonts/jb
@@ -96,6 +100,7 @@ if __checkos 'debian|ubuntu|pop'; then
 	get_config
 	mkdirs
 	setup_zsh
+	install_alacritty
 	install_pyenv
 	install_nvim
 	install_py_tools

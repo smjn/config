@@ -116,6 +116,10 @@
   :bind (("C-c p" . neotree-toggle)))
 
 (use-package 
+  haskell-mode 
+  :ensure t)
+
+(use-package 
   python-mode 
   :ensure t 
   :config (add-hook 'python-mode-hook 'lsp-deferred) 
