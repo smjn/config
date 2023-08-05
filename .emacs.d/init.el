@@ -1,6 +1,8 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(setq inhibit-startup-message t) 
+(setq initial-scratch-message nil)
 (set-frame-font "JetBrains Mono Light 14" nil t)
 
 (set-language-environment 'utf-8)

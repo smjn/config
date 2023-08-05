@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 alias zsrc='source ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
 if [[ -e ~/.config/nvim/init.lua ]]; then
@@ -34,19 +34,31 @@ alias POW='sudo poweroff'
 alias REB='sudo reboot'
 
 alias axe='axel -n10 -k -a'
-alias em='emacs -nw'
+
+export EM="emacs"
+export EMC="emacsclient"
+if which flatpak >&/dev/null; then
+    if flatpak list | grep emacs >&/dev/null; then
+        export EM="flatpak run org.gnu.emacs"
+        export EMC="flatpak run --command=emacsclient org.gnu.emacs"
+    fi
+fi
+
+alias em="$EM -nw"
+alias emacs="$EM"
 function emacs_server_start {
-	if ! pgrep -f "$1" 1>&2 2>/dev/null; then
-		emacs --bg-daemon=emacs_bg_d
+	if ! pgrep -f "$1" >&/dev/null; then
+		eval "$EM --bg-daemon=emacs_bg_d"
 	fi
 }
+
 
 function emc {
 	local readonly socket_name="emacs_bg_d"
 	emacs_server_start $socket_name
-	emacsclient -nw -c --socket-name=$socket_name
+	eval "$EMC -nw -c --socket-name=$socket_name"
 }
 
-alias emrc='emacs -nw ~/.emacs.d/init.el'
+alias emrc="$EM -nw ~/.emacs.d/init.el"
 
 which nvim >&/dev/null && alias vim=nvim
